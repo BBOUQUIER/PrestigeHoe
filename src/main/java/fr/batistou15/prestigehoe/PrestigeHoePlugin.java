@@ -1,8 +1,10 @@
 package fr.batistou15.prestigehoe;
 
 import fr.batistou15.prestigehoe.boost.BoostManager;
-import fr.batistou15.prestigehoe.boost.BoostUseListener;
-import fr.batistou15.prestigehoe.commands.PrestigeHoeCommand;
+import fr.batistou15.prestigehoe.bootstrap.CommandRegistrar;
+import fr.batistou15.prestigehoe.bootstrap.ListenerRegistrar;
+import fr.batistou15.prestigehoe.bootstrap.ResourceBootstrapper;
+import fr.batistou15.prestigehoe.bootstrap.StorageFactory;
 import fr.batistou15.prestigehoe.config.ConfigManager;
 import fr.batistou15.prestigehoe.crop.CropManager;
 import fr.batistou15.prestigehoe.data.*;
@@ -13,16 +15,11 @@ import fr.batistou15.prestigehoe.formula.FormulaEngine;
 import fr.batistou15.prestigehoe.hoe.HoeItemManager;
 import fr.batistou15.prestigehoe.hooks.EconomyHook;
 import fr.batistou15.prestigehoe.hooks.JobsHook;
-import fr.batistou15.prestigehoe.listeners.*;
-import fr.batistou15.prestigehoe.menu.MenuListener;
-import fr.batistou15.prestigehoe.menu.MenuManager;
-import fr.batistou15.prestigehoe.menu.SkinMenuListener;
 import fr.batistou15.prestigehoe.notification.NotificationService;
 import fr.batistou15.prestigehoe.prestige.PrestigeBonusService;
 import fr.batistou15.prestigehoe.recap.RecapService;
 import fr.batistou15.prestigehoe.skin.SkinManager;
 import fr.batistou15.prestigehoe.util.ProtocolLibEffectsUtil;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -31,8 +28,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.io.File;
-import java.util.Locale;
 import java.util.logging.Level;
 
 public class PrestigeHoePlugin extends JavaPlugin {
@@ -69,38 +64,14 @@ public class PrestigeHoePlugin extends JavaPlugin {
             getLogger().warning("Impossible de créer le dossier de données du plugin.");
         }
 
-        // ======= Ressources par défaut (.yml) =======
-        saveDefaultResourceIfNotExists("config.yml");
-        saveDefaultResourceIfNotExists("messages.yml");
-        saveDefaultResourceIfNotExists("enchants.yml");
-        saveDefaultResourceIfNotExists("crops.yml");
-        saveDefaultResourceIfNotExists("skins.yml");
-        saveDefaultResourceIfNotExists("prestige.yml");
-        saveDefaultResourceIfNotExists("prestige_shop.yml");
-        saveDefaultResourceIfNotExists("grades.yml");
-        saveDefaultResourceIfNotExists("boosts.yml");
-        saveDefaultResourceIfNotExists("leaderboards.yml");
-        saveDefaultResourceIfNotExists("events.yml");
-        saveDefaultResourceIfNotExists("guis.yml");
-
-        // Menus
-        saveDefaultResourceIfNotExists("menus/Main.yml");
-        saveDefaultResourceIfNotExists("menus/Enchants.yml");
-        saveDefaultResourceIfNotExists("menus/UpgradeMenu.yml");
-        saveDefaultResourceIfNotExists("menus/DisenchantMenu.yml");
-        saveDefaultResourceIfNotExists("menus/PrestigeMenu.yml");
-        saveDefaultResourceIfNotExists("menus/PrestigeShopMenu.yml");
-        saveDefaultResourceIfNotExists("menus/Skinmenu.yml");
-        saveDefaultResourceIfNotExists("menus/LeaderboardsMenu.yml");
-        saveDefaultResourceIfNotExists("menus/CropsMenu.yml");
-        saveDefaultResourceIfNotExists("menus/Settings.yml");
+        ResourceBootstrapper.copyDefaults(this);
 
         // ======= Configs =======
         this.configManager = new ConfigManager(this);
         this.configManager.reloadAll();
 
         // === Storage ===
-        setupStorage();
+        this.dataStorage = StorageFactory.create(this, configManager);
         this.playerDataManager = new PlayerDataManager(this, dataStorage);
         // 🔁 Auto-save périodique basé sur config.yml
         setupAutoSaveTask();
@@ -149,81 +120,18 @@ public class PrestigeHoePlugin extends JavaPlugin {
         // Menus
         this.menuManager = new MenuManager(this);
 
-        // ======= Listeners =======
-        PluginManager pm = getServer().getPluginManager();
-
-        // Connexion / chargement profil
-        pm.registerEvents(
-                new PlayerConnectionListener(playerDataManager, hoeItemManager, configManager),
-                this
+        // ======= Listeners & commandes =======
+        ListenerRegistrar listenerRegistrar = new ListenerRegistrar(this);
+        listenerRegistrar.registerCoreListeners(
+                playerDataManager,
+                hoeItemManager,
+                menuManager,
+                farmService,
+                prestigeBonusService,
+                skinManager
         );
 
-        // Protection de la hoe + ouverture menu via touche F
-        pm.registerEvents(
-                new HoeProtectionListener(this),
-                this
-        );
-
-        // Casse de blocs / farm
-        pm.registerEvents(
-                new FarmListener(farmService),
-                this
-        );
-
-        // Clic dans les menus
-        pm.registerEvents(
-                new MenuListener(this), // <-- on passe le plugin, pas le menuManager
-                this
-        );
-
-        // Ouverture de menu via clic droit / off-hand sur la hoe
-        pm.registerEvents(
-                new HoeMenuOpenListener(this),
-                this
-        );
-
-        // Listener de vitesse lié à la hoe
-        pm.registerEvents(
-                new HoeSpeedListener(this, playerDataManager, hoeItemManager, prestigeBonusService),
-                this
-        );
-        pm.registerEvents(
-                new BoostUseListener(this),
-                this
-        );
-        pm.registerEvents(        new SkinMenuListener(
-                this,
-                this.skinManager,
-                this.playerDataManager,
-                this.hoeItemManager,
-                this.menuManager.getSkinMenuService()
-        ),
-                this
-);
-        // Listener TNT (Explosive)
-        pm.registerEvents(new ExplosiveTntListener(this), this);
-
-        // ======= Commandes =======
-        PrestigeHoeCommand prestigeCmd = new PrestigeHoeCommand(this);
-
-        // /prestigehoe
-        PluginCommand prestigeCommand = getCommand("prestigehoe");
-        if (prestigeCommand != null) {
-            prestigeCommand.setExecutor(prestigeCmd);
-            prestigeCommand.setTabCompleter(prestigeCmd);
-        } else {
-            getLogger().severe("Commande /prestigehoe non trouvée dans plugin.yml !");
-        }
-
-        // /essencehoe (alias logique vers PrestigeHoeCommand, sous-commande essence)
-        PluginCommand essenceCommand = getCommand("essencehoe");
-        if (essenceCommand != null) {
-            essenceCommand.setExecutor(prestigeCmd);
-            essenceCommand.setTabCompleter(prestigeCmd);
-        } else {
-            // pas bloquant, juste un alias manquant
-            getLogger().warning("Commande /essencehoe non trouvée dans plugin.yml (alias).");
-        }
+        new CommandRegistrar(this).registerCommands();
 
         getLogger().info("PrestigeHoe est activé.");
     }
@@ -249,25 +157,6 @@ public class PrestigeHoePlugin extends JavaPlugin {
             recapService.stopAll();
         }
         getLogger().info("PrestigeHoe est désactivé.");
-    }
-
-    /**
-     * Choix du backend de stockage (LOCAL / MYSQL).
-     */
-    private DataStorage createStorageBackend() {
-        FileConfiguration cfg = configManager.getMainConfig();
-        String typeRaw = cfg.getString("general.storage-type", "LOCAL");
-        String upper = typeRaw != null ? typeRaw.toUpperCase(Locale.ROOT) : "LOCAL";
-
-        switch (upper) {
-            case "MYSQL":
-                getLogger().warning("MYSQL n'est pas encore implémenté, fallback sur stockage LOCAL (JSON).");
-                return new JsonDataStorage(this);
-
-            case "LOCAL":
-            default:
-                return new JsonDataStorage(this);
-        }
     }
 
     public static PrestigeHoePlugin getInstance() {
@@ -340,10 +229,6 @@ public class PrestigeHoePlugin extends JavaPlugin {
     public void reloadAllConfigs() {
         // 1) Recharger tous les .yml
         this.configManager.reloadAll();
-
-        if (this.skinManager != null) {
-            this.skinManager.reload();
-        }
         // 2) Recharger les menus
         if (this.menuManager != null) {
             this.menuManager.reloadMenus();
@@ -359,7 +244,7 @@ public class PrestigeHoePlugin extends JavaPlugin {
             this.enchantManager.reloadAll();
         }
 
-        // 4.bis) Skins
+        // 4) Skins
         if (this.skinManager != null) {
             this.skinManager.reload();
         }
@@ -395,71 +280,7 @@ public class PrestigeHoePlugin extends JavaPlugin {
         // 9) Relancer la tâche d'auto-save périodique (au cas où l'intervalle a changé)
         setupAutoSaveTask();
     }
-    private void setupStorage() {
-        var mainCfg = getConfigManager().getMainConfig();
-        ConfigurationSection storageSec = mainCfg.getConfigurationSection("storage");
 
-        String type = "JSON";
-        if (storageSec != null) {
-            type = storageSec.getString("type", "JSON");
-        }
-        if (type == null) {
-            type = "JSON";
-        }
-
-        type = type.toUpperCase(java.util.Locale.ROOT);
-        getLogger().info("[Storage] Type demandé dans config: " + type);
-
-        switch (type) {
-            case "SQLITE": {
-                if (storageSec == null) {
-                    getLogger().warning("[Storage] Section storage absente, fallback JSON.");
-                    dataStorage = new JsonDataStorage(this);
-                    break;
-                }
-
-                ConfigurationSection sqliteSec = storageSec.getConfigurationSection("sqlite");
-                if (sqliteSec == null) {
-                    getLogger().warning("[Storage] Section storage.sqlite absente, fallback JSON.");
-                    dataStorage = new JsonDataStorage(this);
-                    break;
-                }
-
-                String fileName = sqliteSec.getString("file", "prestigehoe.db");
-                File dbFile = new File(getDataFolder(), fileName);
-
-                dataStorage = new SqliteDataStorage(this, dbFile);
-                getLogger().info("[Storage] Utilisation de SQLite (" + dbFile.getName() + ").");
-                break;
-            }
-
-            case "MYSQL": {
-                if (storageSec == null) {
-                    getLogger().warning("[Storage] Section storage absente, fallback JSON.");
-                    dataStorage = new JsonDataStorage(this);
-                    break;
-                }
-
-                ConfigurationSection mysqlSec = storageSec.getConfigurationSection("mysql");
-                if (mysqlSec == null) {
-                    getLogger().warning("[Storage] Section storage.mysql absente, fallback JSON.");
-                    dataStorage = new JsonDataStorage(this);
-                    break;
-                }
-
-                dataStorage = new MysqlDataStorage(this, mysqlSec);
-                getLogger().info("[Storage] Utilisation de MySQL.");
-                break;
-            }
-
-            // JSON + tout autre type inconnu => fallback JSON
-            default: {
-                dataStorage = new JsonDataStorage(this);
-                getLogger().info("[Storage] Utilisation du stockage JSON (par joueur). Type=" + type);
-                break;
-            }
-        }
-    }
     public void setupAutoSaveTask() {
         // Annule l'ancienne tâche si elle existe
         if (autoSaveTask != null) {
@@ -518,16 +339,6 @@ public class PrestigeHoePlugin extends JavaPlugin {
      */
     public void reloadPluginConfigs() {
         reloadAllConfigs();
-    }
-
-    /**
-     * Sauvegarde une ressource par défaut uniquement si elle n'existe pas encore.
-     */
-    public void saveDefaultResourceIfNotExists(String resourcePath) {
-        java.io.File outFile = new java.io.File(getDataFolder(), resourcePath);
-        if (!outFile.exists()) {
-            saveResource(resourcePath, false);
-        }
     }
 
     /**
