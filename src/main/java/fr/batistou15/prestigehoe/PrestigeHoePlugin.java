@@ -70,30 +70,40 @@ public class PrestigeHoePlugin extends JavaPlugin {
         }
 
         // ======= Ressources par défaut (.yml) =======
-        saveDefaultResourceIfNotExists("config.yml");
-        saveDefaultResourceIfNotExists("messages.yml");
-        saveDefaultResourceIfNotExists("enchants.yml");
-        saveDefaultResourceIfNotExists("crops.yml");
-        saveDefaultResourceIfNotExists("skins.yml");
-        saveDefaultResourceIfNotExists("prestige.yml");
-        saveDefaultResourceIfNotExists("prestige_shop.yml");
-        saveDefaultResourceIfNotExists("grades.yml");
-        saveDefaultResourceIfNotExists("boosts.yml");
-        saveDefaultResourceIfNotExists("leaderboards.yml");
-        saveDefaultResourceIfNotExists("events.yml");
-        saveDefaultResourceIfNotExists("guis.yml");
+        String[] baseResources = {
+                "config.yml",
+                "messages.yml",
+                "enchants.yml",
+                "crops.yml",
+                "skins.yml",
+                "prestige.yml",
+                "prestige_shop.yml",
+                "grades.yml",
+                "boosts.yml",
+                "leaderboards.yml",
+                "events.yml",
+                "guis.yml"
+        };
+        for (String resource : baseResources) {
+            saveDefaultResourceIfNotExists(resource);
+        }
 
         // Menus
-        saveDefaultResourceIfNotExists("menus/Main.yml");
-        saveDefaultResourceIfNotExists("menus/Enchants.yml");
-        saveDefaultResourceIfNotExists("menus/UpgradeMenu.yml");
-        saveDefaultResourceIfNotExists("menus/DisenchantMenu.yml");
-        saveDefaultResourceIfNotExists("menus/PrestigeMenu.yml");
-        saveDefaultResourceIfNotExists("menus/PrestigeShopMenu.yml");
-        saveDefaultResourceIfNotExists("menus/Skinmenu.yml");
-        saveDefaultResourceIfNotExists("menus/LeaderboardsMenu.yml");
-        saveDefaultResourceIfNotExists("menus/CropsMenu.yml");
-        saveDefaultResourceIfNotExists("menus/Settings.yml");
+        String[] menuResources = {
+                "menus/Main.yml",
+                "menus/Enchants.yml",
+                "menus/UpgradeMenu.yml",
+                "menus/DisenchantMenu.yml",
+                "menus/PrestigeMenu.yml",
+                "menus/PrestigeShopMenu.yml",
+                "menus/Skinmenu.yml",
+                "menus/LeaderboardsMenu.yml",
+                "menus/CropsMenu.yml",
+                "menus/Settings.yml"
+        };
+        for (String resource : menuResources) {
+            saveDefaultResourceIfNotExists(resource);
+        }
 
         // ======= Configs =======
         this.configManager = new ConfigManager(this);
@@ -251,25 +261,6 @@ public class PrestigeHoePlugin extends JavaPlugin {
         getLogger().info("PrestigeHoe est désactivé.");
     }
 
-    /**
-     * Choix du backend de stockage (LOCAL / MYSQL).
-     */
-    private DataStorage createStorageBackend() {
-        FileConfiguration cfg = configManager.getMainConfig();
-        String typeRaw = cfg.getString("general.storage-type", "LOCAL");
-        String upper = typeRaw != null ? typeRaw.toUpperCase(Locale.ROOT) : "LOCAL";
-
-        switch (upper) {
-            case "MYSQL":
-                getLogger().warning("MYSQL n'est pas encore implémenté, fallback sur stockage LOCAL (JSON).");
-                return new JsonDataStorage(this);
-
-            case "LOCAL":
-            default:
-                return new JsonDataStorage(this);
-        }
-    }
-
     public static PrestigeHoePlugin getInstance() {
         return instance;
     }
@@ -340,10 +331,6 @@ public class PrestigeHoePlugin extends JavaPlugin {
     public void reloadAllConfigs() {
         // 1) Recharger tous les .yml
         this.configManager.reloadAll();
-
-        if (this.skinManager != null) {
-            this.skinManager.reload();
-        }
         // 2) Recharger les menus
         if (this.menuManager != null) {
             this.menuManager.reloadMenus();
@@ -359,7 +346,7 @@ public class PrestigeHoePlugin extends JavaPlugin {
             this.enchantManager.reloadAll();
         }
 
-        // 4.bis) Skins
+        // 4) Skins
         if (this.skinManager != null) {
             this.skinManager.reload();
         }
@@ -407,7 +394,7 @@ public class PrestigeHoePlugin extends JavaPlugin {
             type = "JSON";
         }
 
-        type = type.toUpperCase(java.util.Locale.ROOT);
+        type = type.toUpperCase(Locale.ROOT);
         getLogger().info("[Storage] Type demandé dans config: " + type);
 
         switch (type) {
