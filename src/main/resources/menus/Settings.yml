@@ -1,0 +1,243 @@
+id: "settings"
+title: "&7Paramètres PrestigeHoe"
+size: 45
+
+items:
+
+  recap_toggle:
+    slot: 20
+    icon:
+      material: "STONE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    # Texte par défaut (toujours utilisé pour l'instant)
+    name: "&aRecap automatique"
+    lore:
+      - "&7État actuel: &f%recap_status%"
+      - "&7Envoie un récap toutes les"
+      - "&e%recap_interval_seconds% &7secondes."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aRecap automatique: &2Activé"
+      lore:
+        - "&7Un récap de tes gains est envoyé"
+        - "&7toutes les &e%recap_interval_seconds% &7secondes."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cRecap automatique: &4Désactivé"
+      lore:
+        - "&7Aucun récap automatique ne sera envoyé."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_RECAP"
+
+  notif_chat:
+    slot: 22
+    icon:
+      material: "DIAMOND_BLOCK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&aNotifications Chat"
+    lore:
+      - "&7État actuel: &f%notif_chat_status%"
+      - "&7Contrôle les messages envoyés"
+      - "&7dans le &echat&7."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aNotifications Chat: &2Activées"
+      lore:
+        - "&7Messages envoyés dans le &echat&7 :"
+        - "&7- Proc des enchantements"
+        - "&7- Level up de la houe"
+        - "&7- Prestige, infos système..."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cNotifications Chat: &4Désactivées"
+      lore:
+        - "&7Aucun message lié à PrestigeHoe"
+        - "&7ne sera envoyé dans le chat."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_NOTIF_CHAT"
+
+  notif_enchant_proc:
+    slot: 23
+    icon:
+      material: "SPRUCE_BUTTON"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&aMessages d'enchantements"
+    lore:
+      - "&7État actuel: &f%notif_enchant_proc_status%"
+      - "&7Active ou désactive &ftous les"
+      - "&7messages de &dproc d'enchant&7."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aMessages d'enchantements: &2Activés"
+      lore:
+        - "&7Active ou désactive &ftous les"
+        - "&7messages de &dproc d'enchant&7."
+        - "&7(Selon le mode défini par chaque enchant)"
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cMessages d'enchantements: &4Désactivés"
+      lore:
+        - "&7Les enchantements pourront toujours"
+        - "&7se déclencher, mais &caucun message"
+        - "&7de proc ne sera affiché."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_NOTIF_ENCHANT_PROC"
+
+  notif_levelup:
+    slot: 24
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&aMessages de level-up"
+    lore:
+      - "&7État actuel: &f%notif_levelup_status%"
+      - "&7Message quand ta houe gagne"
+      - "&7un nouveau &eniveau&7."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aMessages de level-up: &2Activés"
+      lore:
+        - "&7Tu vois un message quand ta houe"
+        - "&7gagne un &eniveau&7."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cMessages de level-up: &4Désactivés"
+      lore:
+        - "&7Tu ne verras plus de message"
+        - "&7quand ta houe montera de niveau."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_NOTIF_LEVELUP"
+
+  notif_actionbar:
+    slot: 30
+    icon:
+      material: "OAK_LOG"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&aNotifications ActionBar"
+    lore:
+      - "&7État actuel: &f%notif_actionbar_status%"
+      - "&7Autorise les messages affichés"
+      - "&7en &fActionBar&7 (ex: Furie, recap...)."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aNotifications ActionBar: &2Activées"
+      lore:
+        - "&7Autorise les messages affichés"
+        - "&7en &fActionBar&7 (ex: Furie, recap...)."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cNotifications ActionBar: &4Désactivées"
+      lore:
+        - "&7Les messages ActionBar de PrestigeHoe"
+        - "&7ne seront plus affichés."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_NOTIF_ACTIONBAR"
+
+  notif_title:
+    slot: 32
+    icon:
+      material: "DRAGON_EGG"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&aNotifications Titres"
+    lore:
+      - "&7État actuel: &f%notif_title_status%"
+      - "&7Autorise les gros &fTitres&7 (Title)"
+      - "&7pour les événements importants."
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aNotifications Titres: &2Activées"
+      lore:
+        - "&7Autorise les gros &fTitres&7 (Title)"
+        - "&7pour les événements importants"
+        - "&7(ex: début de Furie)."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cNotifications Titres: &4Désactivées"
+      lore:
+        - "&7Tu ne verras plus les titres"
+        - "&7envoyés par PrestigeHoe."
+        - ""
+        - "&eClique pour &aActiver&e."
+    action: "TOGGLE_NOTIF_TITLE"
+
+  back:
+    slot: 40
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu précédent."
+    action: "OPEN_MENU:main"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8, 36,37,38,39,41,42,43,44]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: " "
+    lore: []
+    action: "NONE"

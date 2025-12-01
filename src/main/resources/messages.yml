@@ -1,0 +1,248 @@
+# =============================
+#  PrestigeHoe - messages.yml
+# =============================
+# Tous les messages du plugin.
+# Couleurs : & pour codes couleur, support CMI & hex si le serveur le permet.
+# Les placeholders PlaceholderAPI sont supportés.
+
+prefix: "&6[PrestigeHoe]&r "
+
+errors:
+  no-permission: "%prefix%&cTu n'as pas la permission pour faire ça."
+  not-a-player: "&cCette commande est uniquement pour les joueurs."
+  not-holding-hoe: "%prefix%&cTu dois tenir une PrestigeHoe pour faire ça."
+  invalid-target: "%prefix%&cJoueur introuvable."
+  invalid-amount: "%prefix%&cMontant invalide."
+  invalid-enchant: "%prefix%&cEnchantement inconnu."
+  not-enough-essence: "%prefix%&cTu n'as pas assez d'Essence."
+  not-enough-money: "%prefix%&cTu n'as pas assez d'argent."
+  at-max-level: "%prefix%&eTa houe est déjà au niveau maximum."
+  not-enough-tokens: "%prefix%&cTu n'as pas assez de &dPrestige Tokens &cpour cela."
+  not-owner: "%prefix%&cTu n'es pas le propriétaire de cette houe."
+  no-hoe-data: "%prefix%&cAucune donnée de houe trouvée pour ce joueur."
+  not-enough-prestige-tokens: "&cTu n'as pas assez de &dPrestige Tokens&c."
+  prestige-perk-max-level: "&cCe perk est déjà au niveau maximum."
+  no-profile: "%prefix%&cProfil introuvable pour ce joueur."
+  invalid-level: "%prefix%&cValeur invalide: &e%value%"
+hoe:
+  display-name: "&6PrestigeHoe &7(&ePrestige %prestige% | Lvl %level%&7)"
+
+  lore:
+    - "&7Propriétaire: &e%player%"
+    - "&7Niveau: &e%level% &7/&e%max_level%"
+    - "&7Prestige de la houe: &d%prestige%"
+    - "&7XP: &e%xp_current% &7/&e%xp_required%"
+    - "&7Crops cassées: &e%crop_break%"
+    - "&7Argent farmé: &e%money_farm%"
+    - "&7Essence farmée: &e%essence_farm%"
+    - "&8----------------"
+    - "%enchant_lines%"
+
+  enchant-lines:
+    format: "%enchant_name%: &f%level%"
+    names:
+      fortune: "Fortune"
+      autosell: "Autosell"
+      essence_booster: "Essence Booster"
+      money_booster: "Money Booster"
+      token_finder: "Token Finder"
+
+  level-up:
+    display-mode: "CHAT" # CHAT / ACTIONBAR / TITLE / SUBTITLE / BOSSBAR
+    message: "%prefix%&aTa houe est passée niveau &e%prestigehoe_level%&a !"
+      # Utilisé si type=CHAT (ou comme fallback)
+    chat: "%prefix%&aTa houe est passée niveau &e%level%&a !"
+
+      # Utilisé si type=ACTIONBAR (fallback sur chat si manquant)
+    actionbar: "&aHoue niveau &e%level%&a !"
+
+      # Utilisé si type=TITLE
+    title:
+      title: "&aLEVEL UP !"
+      subtitle: "&fTa houe est maintenant &e%level%"
+
+      # Utilisé si type=BOSSBAR (fallback sur chat si manquant)
+    bossbar: "&aTa houe est passée niveau &e%level%&a !"
+  max-level-reached:
+    display-mode: "CHAT"
+    message: "%prefix%&eTa houe a atteint son niveau maximum (&6%prestigehoe_level%&e) !"
+  prestige-up:
+    chat: "%prefix%&dTa houe est passée prestige &5%prestige%&d !"
+    actionbar: "&dPrestige &5%prestige%&d atteint !"
+    title:
+      title: "&dPRESTIGE &5%prestige%"
+      subtitle: "&fGG pour ta houe !"
+    bossbar: "&dTa houe a atteint le prestige &5%prestige%&d !"
+
+essence:
+  balance-self: "%prefix%&fTu as &b%prestigehoe_essence% &bEssence."
+  balance-other: "%prefix%&e%player% &fpossède &b%prestigehoe_essence% &bEssence."
+  added: "%prefix%&aTu as reçu &b%amount% &bEssence."
+  removed: "%prefix%&cOn t'a retiré &b%amount% &bEssence."
+
+money:
+  autosell-summary: "%prefix%&7[Autosell] &fTu as gagné &a$%amount% &fsur cette vente."
+
+prestige:
+  up-success:
+    display-mode: "TITLE"  # CHAT / ACTIONBAR / TITLE / SUBTITLE / BOSSBAR
+    title: "&d&lPRESTIGE +1"
+    subtitle: "&7Ta houe est maintenant prestige &d%prestigehoe_prestige%&7 !"
+    chat-message: "%prefix%&dFélicitations ! Ta houe est maintenant prestige &e%prestigehoe_prestige%&d."
+  up-fail-not-enough-level:
+    display-mode: "CHAT"
+    message: "%prefix%&cTu dois d'abord atteindre le niveau maximum de ta houe pour prestiger."
+  tokens-gained:
+    display-mode: "CHAT"
+    message: "%prefix%&dTu as gagné &e%tokens_gained% &dPrestige Tokens &7(&fTotal: &e%prestigehoe_prestige_tokens%&7)."
+prestige-shop:
+  purchase-success:
+    display-mode: "CHAT"
+    message: "%prefix%&aTu as acheté le perk &e%perk_name% &apour &d%cost_tokens% &dPrestige Tokens&a !"
+  purchase-fail-tokens:
+    display-mode: "CHAT"
+    message: "%prefix%&cTu n'as pas assez de Prestige Tokens (&f%prestigehoe_prestige_tokens%&c)."
+  already-owned:
+    display-mode: "CHAT"
+    message: "%prefix%&eTu possèdes déjà ce perk."
+enchants:
+  upgrade-success:
+    display-mode: "CHAT"
+    message: "%prefix%&aTu as amélioré &e%enchant_name% &aau niveau &e%new_level%&a !"
+  disenchant-success:
+    display-mode: "CHAT"
+    message: "%prefix%&eTu as rétrogradé &6%enchant_name% &eau niveau &6%new_level%&e. &7(Refund: &b%refund_amount% Essence&7)"
+  # Message générique pour un proc d'enchant (si l'enchant n'a pas sa propre config)
+  proc-generic:
+    display-mode: "ACTIONBAR"
+    message: "&d%enchant_name% &7vient de se déclencher !"
+
+  # Les enchants peuvent OVERRIDE ces messages dans enchants.yml (section 'notifications')
+events:
+  start:
+    display-mode: "CHAT"
+    message: "%prefix%&aUn event de farm commence maintenant !"
+  end:
+    display-mode: "CHAT"
+    message: "%prefix%&eL'event de farm est terminé !"
+  top-message:
+    - "&6--- &eRésultats de l'event &6---"
+    - "&e1) &f%player1% &7- &e%score1%"
+    - "&e2) &f%player2% &7- &e%score2%"
+    - "&e3) &f%player3% &7- &e%score3%"
+recap:
+  # Mode d'affichage du récap :
+  # - "CHAT"      -> messages dans le chat
+  # - "ACTIONBAR" -> message condensé dans l'actionbar
+  display-mode: "CHAT"
+
+  # Lignes du récap. Tous les placeholders sont des "gains sur l'intervalle".
+  # Placeholders dispo :
+  #   %prestigehoe_recap_money%          -> argent gagné
+  #   %prestigehoe_recap_essence%        -> essence gagnée
+  #   %prestigehoe_recap_crops%          -> crops cassées
+  #   %prestigehoe_recap_autosell_items% -> items vendus via Autosell
+  lines:
+    - "&8&l&m------------------------------"
+    - "&6&lPrestigeHoe &7- &fRécap"
+    - "&7Argent gagné: &a$%prestigehoe_recap_money%"
+    - "&7Essence gagnée: &b%prestigehoe_recap_essence%"
+    - "&7Crops cassées: &f%prestigehoe_recap_crops%"
+    - "&7Items vendus (Autosell): &f%prestigehoe_recap_autosell_items%"
+    - "&8&l&m------------------------------"
+  toggle-on: "%prefix%&aRecap automatique &aactivé."
+  toggle-off: "%prefix%&cRecap automatique &cdésactivé."
+
+boosts:
+  activated:
+    display-mode: "CHAT"
+    message: "%prefix%&aBoost &e%boost_name% &aactivé pendant &e%duration%s&a !"
+  conflict:
+    display-mode: "CHAT"
+    message: "%prefix%&eTu as déjà un boost actif. Impossible d'en activer un autre pour le moment."
+
+skins:
+  unlocked:
+    display-mode: "CHAT"
+    message: "%prefix%&aTu as débloqué le skin &e%skin_name%&a !"
+  equipped:
+    display-mode: "CHAT"
+    message: "%prefix%&aTu as équipé le skin &e%skin_name%&a."
+  requirements-not-met:
+    display-mode: "CHAT"
+    message: "%prefix%&cTu ne remplis pas les conditions pour ce skin."
+
+menus:
+  opened-main: "%prefix%&7Menu PrestigeHoe ouvert."
+  opened-enchants: "%prefix%&7Menu des enchantements ouvert."
+  opened-disenchant: "%prefix%&7Menu de disenchant ouvert."
+  opened-prestige: "%prefix%&7Menu de prestige ouvert."
+  opened-skins: "%prefix%&7Menu des skins ouvert."
+  opened-settings: "%prefix%&7Menu des paramètres ouvert."
+
+
+commands:
+  help:
+    header: "&6&m------------&r &ePrestigeHoe - Aide &6&m------------"
+    footer: "&6&m-------------------------------------------"
+    entry-format: "&e/%label% %sub%&7 - %description%"
+    essence-section-title: "&6&lEssence :"
+    essence-view: "&e/essencehoe&7 - Voir ton solde d'Essence."
+    essence-pay: "&e/essencehoe pay <joueur> <montant>&7 - Envoyer de l'Essence."
+    essence-admin: "&e/essencehoe <set|add|remove> <joueur> <montant>&7 - Gérer l'Essence d'un joueur."
+
+  essence:
+    self-balance: "%prefix%&bTu possèdes &e%amount% &bEssence."
+    errors:
+      not-a-player: "%prefix%&cSeul un joueur peut utiliser cette commande."
+      no-profile: "%prefix%&cProfil introuvable."
+      invalid-amount: "%prefix%&cMontant invalide: &e%value%"
+      negative-amount: "%prefix%&cLe montant doit être positif."
+      not-enough: "%prefix%&cTu n'as pas assez d'Essence pour envoyer &e%amount%&c."
+    usage:
+      pay: "%prefix%&cUsage: /%label% essence pay <joueur> <montant>"
+      unknown: "%prefix%&cUsage: &e/%label% essence [pay|set|add|remove] ..."
+    pay:
+      sent: "%prefix%&aTu as envoyé &b%amount% Essence &aà &e%target%&a."
+      received: "%prefix%&aTu as reçu &b%amount% Essence &ade &e%sender%&a."
+    admin:
+      usage: "%prefix%&cUsage: /%label% essence %sub% <joueur> <montant>"
+      updated-admin: "%prefix%&aEssence de &e%target% &amis à &b%amount%&a."
+      updated-player: "%prefix%&eUn administrateur a mis à jour ton Essence: &b%amount%"
+
+
+
+admin:
+  reload-success: "%prefix%&aConfiguration rechargée, toutes les houes et menus ont été mis à jour."
+  edit-hoe: "%prefix%&aTu édites maintenant la houe en main."
+  setowner-success: "%prefix%&aPropriétaire de la houe défini sur &e%new_owner%&a."
+  setprestige-notify: "%prefix%&eTon prestige de houe a été défini à &d%value% &epar un administrateur."
+  reset-success: "%prefix%&aLa houe et les stats de &e%player% &aont été réinitialisées."
+  token-updated-admin: "%prefix%&aPrestige Tokens de &e%player% &amis à &d%amount%&a."
+  token-updated-player: "%prefix%&eTes Prestige Tokens ont été mis à jour: &d%amount%"
+  perk-updated-admin: "%prefix%&aPerk &e%perk_display_name% &ade &e%player% &amis à &b%niveau%&a."
+  perk-updated-player: "%prefix%&eTon perk &b%perk_display_name% &ea été mis à jour: &b%niveau%"
+  usage:
+    give: "%prefix%&cUsage: /prestigehoe give <joueur>"
+    setenchant: "%prefix%&cUsage: /prestigehoe setenchant <id> <level>"
+    setprestige: "%prefix%&cUsage: /prestigehoe setprestige <valeur>"
+    reset: "%prefix%&cUsage: /prestigehoe reset <joueur>"
+    setlevel: "%prefix%&cUsage: /prestigehoe setlevel <joueur> <niveau>"
+    setowner: "%prefix%&cUsage: /prestigehoe setowner <joueur>"
+    info: "%prefix%&cUsage: /prestigehoe info <joueur>"
+  info:
+    # Liste complète des lignes envoyées par /prestigehoe info
+    # Tu peux tout modifier, ajouter/enlever des lignes, changer les couleurs, etc.
+    lines:
+      - "&8&m----------------------------------------"
+      - "%prefix%&eInfos PrestigeHoe pour &a%player%&e :"
+      - "&7▪ &fNiveau houe : &e%hoe_level%"
+      - "&7▪ &fPrestige houe : &d%hoe_prestige%"
+      - "&7▪ &fXP houe : &e%hoe_xp%"
+      - "&7▪ &fEssence actuelle : &b%essence%"
+      - "&7▪ &fPrestige Tokens : &d%prestige_tokens%"
+      - "&7▪ &fCrops cassées (total) : &e%crops_broken%"
+      - "&7▪ &fArgent généré (total) : &a$%money_earned%"
+      - "&7▪ &fEssence gagnée (total) : &b%essence_earned%"
+      - "&7▪ &fEnchants : %enchants%"
+      - "&8&m----------------------------------------"

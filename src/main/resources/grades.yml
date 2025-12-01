@@ -1,0 +1,47 @@
+# ============================
+#  PrestigeHoe - grades.yml
+# ============================
+# Configuration des grades gratuits et payants et de leurs boosts.
+
+grades:
+  # Les modes de combinaison sont définis dans config.yml > economy.grades
+
+  free-grades:
+    # Grade gratuit 1
+    aventurier:
+      display-name: "&aAventurier"
+      required-permission: "grade.aventurier"
+      essence-multiplier: 1.10
+      money-multiplier: 1.05
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+
+    ecuyer:
+      display-name: "&aÉcuyer"
+      required-permission: "grade.ecuyer"
+      essence-multiplier: 1.20
+      money-multiplier: 1.10
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+
+  paid-grades:
+    vip:
+      display-name: "&6VIP"
+      required-permission: "grade.vip"
+      essence-multiplier: 1.50
+      money-multiplier: 1.50
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+
+    legend:
+      display-name: "&dLegend"
+      required-permission: "grade.legend"
+      essence-multiplier: 2.00
+      money-multiplier: 2.00
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+

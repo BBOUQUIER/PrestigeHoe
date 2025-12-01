@@ -1,0 +1,964 @@
+# =============================
+#  PrestigeHoe - enchants.yml
+# =============================
+# Liste de tous les enchantements de la houe.
+# On peut en ajouter/supprimer librement en gardant la même structure.
+
+enchants:
+  #|-------------------------------------------------------------------------------------------|
+  #|                     AutoSell                                                              |
+  #|-------------------------------------------------------------------------------------------|
+  autosell:
+    enabled: true
+    display-name: "&aAutosell"
+    description:
+      - "&7Vend automatiquement les cultures récoltées"
+    gui:
+      slot: 10
+      icon:
+        material: "CHEST"
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      # Prix en Essence
+      essence:
+        base-cost: 1000
+        increase-percent-per-level: 50.0
+    chance:
+      base-chance: 1.0   # 1.0 = 100%, autosell ne dépend pas d'un proc aléatoire
+      chance-per-level: 0.0
+    settings:
+      # Pas de paramètres spécifiques, la logique est liée au pipeline d'autosell
+      mode: "ALWAYS"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false   # pas de message à chaque vente
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&aTu as amélioré &e%enchant_name% &aau niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Fortune                                                               |
+  #|-------------------------------------------------------------------------------------------|
+  fortune:
+    enabled: true
+    display-name: "&d✨ Super Fortune ✨"
+    description:
+      - "&7Augmente le nombre de drops"
+      - "&7obtenus sur les cultures."
+    gui:
+      slot: 11
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 500
+        increase-percent-per-level: 40.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      # multiplicateur de drops = 1 + fortune_level * fortune-multiplier-per-level
+      fortune-multiplier-per-level: 1 # <-- mets plutôt 1.0 pour tester (x2)
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&bFortune &aest maintenant niveau &e%new_level%&a !"
+
+
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Explosive                                                             |
+  #|-------------------------------------------------------------------------------------------|
+
+  explosive:
+    enabled: true
+    display-name: "&cExplosive"
+    description:
+      - "&7A une chance de casser une zone autour"
+      - "&7de la culture cassée, avec une TNT visuelle."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+      #- "&7Par niveau: &e%enchant_proc_chance_per_level_percent%"
+      #- "&7Au prochain niveau: &e%enchant_proc_chance_next_percent%"
+    gui:
+      slot: 12
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 10
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 5000
+        increase-percent-per-level: 60.0
+    chance:
+      base-chance: 0.01     # 1%
+      chance-per-level: 0.001
+    settings:
+      # TNT visible uniquement par le joueur ou par tout le monde
+      tnt-visual-mode: "PLAYER_ONLY"  # PLAYER_ONLY / EVERYONE
+      # Tiers de rayon (en blocs)
+      # Le tier utilisé est le plus haut pour lequel level >= level-min
+      tiers:
+        - tier: 1
+          level-min: 1
+          radius: 1
+        - tier: 2
+          level-min: 25
+          radius: 2
+        - tier: 3
+          level-min: 50
+          radius: 3
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "TITLE"
+      on-proc-message: "&cExplosive &7s'est déclenché !"
+      on-proc-title: "&4&lBOUM !"
+      on-proc-subtitle: "&7Explosive a détruit les cultures autour de toi."
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&cExplosive &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     LineBreaker                                                           |
+  #|-------------------------------------------------------------------------------------------|
+  linebreaker:
+    enabled: true
+    display-name: "&9Line Breaker"
+    description:
+      - "&7Casse une ligne de cultures devant toi."
+      - "&7La longueur augmente avec les tiers."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 13
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 10
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 4000
+        increase-percent-per-level: 50.0
+    chance:
+      base-chance: 0.01
+      chance-per-level: 0.001
+    settings:
+      visual-mode: "PLAYER_ONLY"
+      tiers:
+        - tier: 1
+          level-min: 1
+          length: 5
+        - tier: 2
+          level-min: 25
+          length: 10
+        - tier: 3
+          level-min: 50
+          length: 15
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "ACTIONBAR"
+      on-proc-message: "&9Line Breaker &7s'est déclenché !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&9Line Breaker &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Money Booster                                                         |
+  #|-------------------------------------------------------------------------------------------|
+  money_booster:
+    enabled: true
+    display-name: "&6Money Booster"
+    description:
+      - "Boost d'argent récolté"
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 14
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2000
+        increase-percent-per-level: 40.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      # ADD -> +X% par niveau
+      # MULTIPLY -> x(1+X) par niveau
+      stack-mode: "ADD"
+      money-bonus-per-level: 0.01  # 1% par niveau
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&6Money Booster &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Essence Booster                                                       |
+  #|-------------------------------------------------------------------------------------------|
+  essence_booster:
+    enabled: true
+    display-name: "&bEssence Booster"
+    description:
+      - "Boost l'essence récoltés"
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 15
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 5000
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2000
+        increase-percent-per-level: 40.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      stack-mode: "ADD"
+      essence-bonus-per-level: 0.003
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&bEssence Booster &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Token Finder                                                          |
+  #|-------------------------------------------------------------------------------------------|
+  token_finder:
+    enabled: true
+    display-name: "&dToken Finder"
+    description:
+      - "&7Chance de gagner des &dTokens de prestige&7."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 19
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 4000
+        increase-percent-per-level: 45.0
+    chance:
+      base-chance: 0.005
+      chance-per-level: 0.0005
+    settings:
+      rewards:
+        - chance: 0.90
+          tokens: 1
+          commands:
+            - "give %player% SPRUCE_BUTTON 1"
+        - chance: 0.09
+          tokens: 5
+          commands:
+            - "give %player% OAK_LOG 5"
+        - chance: 0.01
+          tokens: 10
+          commands:
+            - "give %player% STONE 10 "
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&dTu as gagné &5%tokens_formatted% &dtokens de prestige !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&dToken Finder &aest maintenant niveau &e%new_level%&a !"
+
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Key Finder                                                            |
+  #|-------------------------------------------------------------------------------------------|
+  key_finder:
+    enabled: true
+    display-name: "&eKey Finder"
+    description:
+      - "&7Chance de gagner une clé de crate."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 20
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2500
+        increase-percent-per-level: 45.0
+    chance:
+      base-chance: 0.005
+      chance-per-level: 0.0005
+    settings:
+      # Liste de commandes possibles, avec chance
+      rewards:
+        - chance: 0.7
+          commands:
+            - "crate key give %player% farm 1"
+          on-proc-message:
+            - "%prefix%&eTu as obtenu une &6Clé Farm &e!"
+        - chance: 0.3
+          commands:
+            - "crate key give %player% mythical 1"
+          on-proc-message:
+            - "%prefix%&eTu as obtenu une &6Clé Mythique &e!"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "ACTIONBAR"
+      on-proc-message: "%prefix%&eTu as trouvé une clé !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&eKey Finder &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Spawner Finder                                                        |
+  #|-------------------------------------------------------------------------------------------|
+  spawner_finder:
+    enabled: true
+    display-name: "&5Spawner Finder"
+    description:
+      - "&7Chance de gagner un spawner configurable"
+      - "&7ou un item spécial."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 21
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 10
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 5000
+        increase-percent-per-level: 60.0
+    chance:
+      base-chance: 0.002
+      chance-per-level: 0.0002
+    settings:
+      rewards:
+        - chance: 0.9
+          commands:
+            - "give %player% cow_spawner 1"
+          on-proc-message:
+            - "%prefix%&eTu as obtenu un spawner a vache &e!"
+        - chance: 0.1
+          commands:
+            - "give %player% blaze_spawner 1"
+          on-proc-message:
+            - "%prefix%&eTu as obtenu un spawner a blaze &e!"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&5Tu as trouvé un spawner !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&5Spawner Finder &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Proc Booster                                                         |
+  #|-------------------------------------------------------------------------------------------|
+  proc_booster:
+    enabled: true
+    display-name: "&dProc Booster"
+    description:
+      - "&7Augmente la chance de déclenchement"
+      - "&7des enchantements sélectionnés."
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 22
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 4000
+        increase-percent-per-level: 45.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      # Mode de stacking avec d'autres booster (events, perks, etc.)
+      stack-mode: "MULTIPLY"  # ADD / MULTIPLY
+      proc-multiplier-per-level: 0.01
+      affected-enchants:
+        - "explosive"
+        - "linebreaker"
+        - "furie"
+        - "essence_pouch"
+        - "money_pouch"
+        - "token_finder"
+        - "spawner_finder"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&dProc Booster &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Speed                                                                 |
+  #|-------------------------------------------------------------------------------------------|
+  speed:
+    enabled: true
+    display-name: "&fSpeed"
+    description:
+      - "&7Donne un bonus de vitesse."
+      - "&7Basé sur un pourcentage par niveau."
+    gui:
+      slot: 23
+      icon:
+        material: SUGAR
+        custom-model-data: 0
+    level:
+      max-level: 100
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 1000
+        increase-percent-per-level: 30.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      stack-mode: "ADD"              # ADD ou MULTIPLY
+      speed-bonus-per-level: 0.01    # +1% par niveau
+      max-multiplier: 2.0            # x2 max (soit +100%)
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&fSpeed &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Jobs XP Booster                                                       |
+  #|-------------------------------------------------------------------------------------------|
+  job_xp_booster:
+    enabled: true
+    display-name: "&aJob XP Booster"
+    description:
+      - "&7Augmente l'XP de jobs gagnée en farmant."
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 24
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2000
+        increase-percent-per-level: 40.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      xp-multiplier-per-level: 0.1
+    notifications:
+      enabled: false
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&aJob XP Booster &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Player XP Booster                                                     |
+  #|-------------------------------------------------------------------------------------------|
+  player_xp_booster:
+    enabled: true
+    display-name: "&ePlayer XP Booster"
+    description:
+      - "&7Augmente l'XP vanilla gagnée."
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 25
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2000
+        increase-percent-per-level: 40.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      xp-multiplier-per-level: 0.01
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&ePlayer XP Booster &aest maintenant niveau &e%new_level%&a !"
+
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Furie                                                                 |
+  #|-------------------------------------------------------------------------------------------|
+  furie:
+    enabled: true
+    display-name: "&4Furie"
+    description:
+      - "&7Active un mode Furie pendant un certain temps,"
+      - "&7qui augmente l'argent et l'Essence gagnés."
+      - "&7Durée: &c%duration_time_furie%"
+      - "&7Boost argent: &a%fury_money_boost_percent%"
+      - "&7Boost Essence: &b%fury_essence_boost_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 29
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 50
+      require-hoe-level: 20
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 8000
+        increase-percent-per-level: 70.0
+    chance:
+      base-chance: 0.005
+      chance-per-level: 0.0005
+
+    settings:
+      # Tiers de durée (en secondes)
+      tiers:
+        - tier: 1
+          level-min: 1
+          duration-seconds: 30
+        - tier: 2
+          level-min: 20
+          duration-seconds: 60
+        - tier: 3
+          level-min: 40
+          duration-seconds: 90
+      money_bonus_per_level: 0.10      # +10% d'argent par niveau (exemple)
+      essence_bonus_per_level: 0.10    # +10% d'essence par niveau (exemple)
+
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "ACTIONBAR"
+      on-proc-title: "&4&lFURIE !"
+      on-proc-subtitle: "&7Tes gains sont augmentés pendant %sencondes%."
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&4Furie &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Essence Pouch                                                         |
+  #|-------------------------------------------------------------------------------------------|
+  essence_pouch:
+    enabled: true
+    display-name: "&bEssence Pouch"
+    description:
+      - "&7Chance de recevoir une bourse d'Essence"
+      - "&7avec un montant aléatoire par tier."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+      - "&7Gain moyen: &bentre %essence_pouch_min_formatted% et %essence_pouch_max_formatted%"
+    gui:
+      slot: 30
+      icon:
+        material: LAPIS_LAZULI
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2500
+        increase-percent-per-level: 45.0
+    # Le niveau augmente le taux de proc, pas directement le montant
+    chance:
+      base-chance: 0.01
+      chance-per-level: 0.005
+    settings:
+      # Tiers de quantité d'Essence (min/max)
+      # Le tier utilisé est le plus haut pour lequel level >= level-min
+      tiers:
+        - tier: 1
+          level-min: 1
+          min-amount: 100
+          max-amount: 250
+        - tier: 2
+          level-min: 25
+          min-amount: 250
+          max-amount: 600
+        - tier: 3
+          level-min: 50
+          min-amount: 600
+          max-amount: 1500
+      # Optionnel : formule pour moduler la quantité (par prestige, etc.)
+      # Variables :
+      #   base_random  -> valeur aléatoire entre min-amount et max-amount
+      #   prestige     -> prestige de la houe
+      amount_formula: "base_random * (1 + prestige * 0.01)"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&bTu as trouvé une bourse d'Essence: &e+%amount_formatted% Essence&b !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&bEssence Pouch &aest maintenant niveau &e%new_level%&a !"
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Money Pouch                                                           |
+  #|-------------------------------------------------------------------------------------------|
+  money_pouch:
+    enabled: true
+    display-name: "&6Money Pouch"
+    description:
+      - "&7Chance de recevoir une bourse d'argent"
+      - "&7avec un montant aléatoire par tier."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+      - "&7Gain moyen: &aentre $%money_pouch_min_formatted% &7et $%money_pouch_max_formatted%"
+    gui:
+      slot: 31
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2500
+        increase-percent-per-level: 45.0
+    chance:
+      base-chance: 0.005
+      chance-per-level: 0.0005
+    settings:
+      tiers:
+        - tier: 1
+          level-min: 1
+          min-amount: 1000
+          max-amount: 5000
+        - tier: 2
+          level-min: 25
+          min-amount: 5000
+          max-amount: 15000
+        - tier: 3
+          level-min: 50
+          min-amount: 15000
+          max-amount: 30000
+      # Variables :
+      #   base_random  -> valeur aléatoire tirée
+      #   prestige     -> prestige de la houe
+      amount_formula: "base_random * (1 + prestige * 0.01)"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&6Tu as trouvé une bourse d'argent: &a$%amount_formatted%&6 !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&6Money Pouch &aest maintenant niveau &e%new_level%&a !"
+  # Exemple d'enchant custom clonable
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Custom Enchant Exemple                                                |
+  #|-------------------------------------------------------------------------------------------|
+  custom_enchant1:
+    enabled: true
+    display-name: "&dCustomEnchant1"
+    description:
+      - "&7Exemple d'enchant custom"
+      - "&7à dupliquer et renommer."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 33
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        # pour plus tard si tu veux :
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 50
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 1000
+        increase-percent-per-level: 30.0
+    chance:
+      base-chance: 0.9
+      chance-per-level: 0.001
+    settings:
+      rewards:
+        - chance: 0.90
+          commands:
+            - "give %player% SPRUCE_BUTTON 1"
+          on-proc-message:
+            - "say %prefix%&dCustomEnchant s'est déclenché !"
+        - chance: 0.09
+          commands:
+            - "give %player% OAK_LOG 5"
+          on-proc-message:
+            - "say %prefix%&dCustomEnchant s'est déclenchéeeeeT !"
+        - chance: 0.01
+          commands:
+            - "give %player% STONE 10 "
+          on-proc-message:
+            - "%prefix%&dCustomEnchant s'est déclenchéeeeeeeeee !"
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&dCustomEnchant s'est déclenché !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&dCustomEnchant &aest maintenant niveau &e%new_level%&a !"
+
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Custom Enchant 2                                                      |
+  #|-------------------------------------------------------------------------------------------|
+  custom_enchant2:
+    enabled: true
+    display-name: "&dCustomEnchant2"
+    description:
+      - "&7Exemple d'enchant custom2"
+      - "&7à dupliquer et renommer."
+      - "&7Chance actuelle: &e%enchant_proc_chance_current_percent%"
+      - "&7Chance totale: &a%enchant_total_proc_chance_percent%"
+    gui:
+      slot: 34
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 50
+      require-hoe-level: 1
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 1000
+        increase-percent-per-level: 30.0
+    chance:
+      base-chance: 0.9
+      chance-per-level: 0.001
+    settings:
+      rewards:
+        - chance: 1.0
+          commands:
+            - "say CustomEnchant2 proc pour %player%."
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: true
+      display-mode: "CHAT"
+      on-proc-message: "%prefix%&dCustomEnchant2 s'est déclenché !"
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&dCustomEnchant2 &aest maintenant niveau &e%new_level%&a !"
+
+  #|-------------------------------------------------------------------------------------------|
+  #|                     Hoe XP Booster                                                        |
+  #|-------------------------------------------------------------------------------------------|
+  hoe_xp_booster:
+    enabled: true
+    display-name: "&dHoe XP Booster"
+    description:
+      - "&7Augmente l'XP de la houe gagnée"
+      - "&7à chaque crop cassée."
+      - "&7Boost actuel: &a%enchant_boost_percent% &7(&8%enchant_boost_multiplier%&7)"
+    gui:
+      slot: 26
+      icon:
+        material: ENCHANTED_BOOK
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+    level:
+      max-level: 100
+      require-hoe-level: 5
+      require-prestige: 0
+    cost:
+      essence:
+        base-cost: 2500
+        increase-percent-per-level: 45.0
+    chance:
+      base-chance: 1.0
+      chance-per-level: 0.0
+    settings:
+      # ADD -> (1 + xp-bonus-per-level * level)
+      # MULTIPLY -> (1 + xp-bonus-per-level) ^ level
+      stack-mode: "ADD"
+      xp-bonus-per-level: 0.01
+    show-in-menu-hoe-info: true
+    menu-hoe-info-format: "&7- &a%name% &8» &f%level%"
+    notifications:
+      enabled: false
+    upgrade-notification:
+      enabled: true
+      type: "CHAT"
+      chat: "%prefix%&dHoe XP Booster &aest maintenant niveau &e%new_level%&a !"
+
+
+

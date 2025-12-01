@@ -1,0 +1,57 @@
+id: "prestige_shop"
+title: "&aBoutique de Prestige"
+size: 54
+
+prestige-shop:
+  auto-fill-from-prestige-shop-config: true
+
+  template:
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "%perk_display_name%"
+    lore:
+      - "&7ID: &f%perk_id%"
+      - "&7Statut: %perk_status%"
+      - ""
+      - "%perk_description_lines%"
+      - ""
+      - "&7Coût: &d%perk_cost_tokens% &dTokens"
+      - "&7Niveau: &e%perk_level_current% &7/&e%perk_level_max%"
+      - "&7Valeur par niveau: &b%perk_value_per_level_percent%"
+      - "&7Bonus total: &b%perk_value_total_percent%"
+      - "&7Bonus au prochain niveau: &b%perk_value_next_percent%"
+      - ""
+      - "&8⬇ &eClique pour acheter."
+
+items:
+  back:
+    slot: 49
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu Prestige."
+    action: "OPEN_MENU:prestige"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8,  45,46,47,48,50,51,52,53]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

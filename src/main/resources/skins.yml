@@ -1,0 +1,137 @@
+skins:
+  default:
+    enabled: true
+    display-name: "&7Skin par défaut"
+    icon:
+      material: "WOODEN_HOE"
+    bonuses:
+      money-multiplier: 1.0
+      essence-multiplier: 1.0
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+      enchant-proc-multiplier: 1.0
+    requirements:
+      min-prestige: 0
+      min-total-crops: 0
+      required-permission: ""
+    cost:
+      money: 0
+      essence: 0
+    lore:
+      locked:
+        - "&cSkin: %skin_name%"
+        - "&7Prérequis:"
+        - "&8- Prestige minimum: &f%min_prestige%"
+        - "&8- Cultures récoltées: &f%min_total_crops%"
+        - ""
+        - "&7Coûts:"
+        - "&8- Argent: &e%money_cost%"
+        - "&8- Essence: &b%essence_cost%"
+      unlocked:
+        - "&aSkin: %skin_name%"
+        - ""
+        - "&7Boosts:"
+        - "&8- Argent: &f%money_mult%x"
+        - "&8- Essence: &f%essence_mult%x"
+        - "&8- XP Houe: &f%hoe_xp_mult%x"
+        - "&8- XP Joueur: &f%player_xp_mult%x"
+        - "&8- XP Métier: &f%job_xp_mult%x"
+        - "&8- Chance enchants: &f%enchant_proc_mult%x"
+        - ""
+        - "&7Équipé: %equipped%"
+
+  stone_hoe:
+    enabled: true
+    display-name: "&7Skin &8Houe en pierre"
+    icon:
+      material: "STONE_HOE"
+    model:
+      itemsadder-id: ""
+    requirements:
+      min-prestige: 5
+      min-total-crops: 10000
+      required-permission: ""
+    cost:
+      money: 50000
+      essence: 1000
+      items: []
+    bonuses:
+      money-multiplier: 1.10 # +10% d'argent
+      essence-multiplier: 1.01 # +1% Essence
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.0
+      enchant-proc-multiplier: 1.0
+    lore:
+      locked:
+        - "&cSkin: %skin_name%"
+        - "&7Skin intermédiaire pour les farmers sérieux."
+        - ""
+        - "&7Prérequis:"
+        - "&8- Prestige minimum: &f%min_prestige%"
+        - "&8- Cultures récoltées: &f%min_total_crops%"
+        - ""
+        - "&7Coûts:"
+        - "&8- Argent: &e%money_cost%"
+        - "&8- Essence: &b%essence_cost%"
+      unlocked:
+        - "&aSkin: %skin_name%"
+        - "&7Boosts:"
+        - "&8- Argent: &f%money_mult%x"
+        - "&8- Essence: &f%essence_mult%x"
+        - ""
+        - "&7Équipé: %equipped%"
+
+  halloween:
+    enabled: true
+    display-name: "&6Skin Halloween"
+    icon:
+      material: "STONE_HOE"
+    model:
+      itemsadder-id: ""
+    requirements:
+      min-prestige: 0
+      min-total-crops: 0
+      required-permission: "prestigehoe.skin.halloween"
+    cost:
+      money: 100000
+      essence: 5000
+      items:
+        - material: "PUMPKIN"
+          amount: 64
+    bonuses:
+      money-multiplier: 1.10
+      essence-multiplier: 1.05
+      xp-hoe-multiplier: 1.0
+      xp-player-multiplier: 1.0
+      job-xp-multiplier: 1.10
+      enchant-proc-multiplier: 1.0
+      crop-bonuses:
+        pumpkin:
+          money-multiplier: 1.20
+        melon:
+          money-multiplier: 1.20
+    lore:
+      locked:
+        - "&cSkin: %skin_name%"
+        - "&7Spécial évènement Halloween !"
+        - ""
+        - "&7Prérequis:"
+        - "&8- Permission: &f%required_permission%"
+        - ""
+        - "&7Coûts:"
+        - "&8- Argent: &e%money_cost%"
+        - "&8- Essence: &b%essence_cost%"
+        - "&8- Items: &f64x Citrouille"
+      unlocked:
+        - "&6Skin: %skin_name%"
+        - "&7Boosts globaux:"
+        - "&8- Argent: &f%money_mult%x"
+        - "&8- Essence: &f%essence_mult%x"
+        - "&8- XP Métier: &f%job_xp_mult%x"
+        - ""
+        - "&7Boosts spéciaux:"
+        - "&8- Citrouille / Melon: &f+20% argent"
+        - ""
+        - "&7Équipé: %equipped%"

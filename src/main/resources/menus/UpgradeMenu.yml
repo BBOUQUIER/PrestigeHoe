@@ -1,0 +1,202 @@
+id: "upgrade_menu"
+title: "&aAméliorer %enchant_display_name%"
+size: 45
+
+items:
+
+  enchant_info:
+    slot: 13
+    icon:
+      material: "ENCHANTED_BOOK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&d%enchant_display_name%"
+    lore:
+      - "&7ID: &f%enchant_id%"
+      - "&7Niveau actuel: &e%enchant_level_current% &7/&e%enchant_level_max%"
+      - ""
+      - "&7Coût par niveau:"
+      - "&7 - Essence: &b%enchant_cost_essence_single%"
+      - ""
+      - "&7Essence disponible: &b%player_essence_formatted%"
+    action: "NONE"
+
+  upgrade_x1:
+    slot: 20
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+1 niveau"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_x1%"
+    action: "UPGRADE_ENCHANT:1"
+
+  upgrade_x10:
+    slot: 21
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+10 niveaux"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_x10%"
+    action: "UPGRADE_ENCHANT:10"
+
+  upgrade_x50:
+    slot: 22
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+50 niveaux"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_x50%"
+    action: "UPGRADE_ENCHANT:50"
+
+  upgrade_x100:
+    slot: 23
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+100 niveaux"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_x100%"
+    action: "UPGRADE_ENCHANT:100"
+
+  upgrade_x1000:
+    slot: 24
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+1000 niveaux"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_x1000%"
+    action: "UPGRADE_ENCHANT:1000"
+
+  upgrade_afford:
+    slot: 31
+    icon:
+      material: "DIAMOND"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&a+%enchant_affordable_levels% niveaux (max possible)"
+    lore:
+      - "&7Coût: &e%enchant_cost_essence_affordable%"
+    action: "UPGRADE_ENCHANT:AFFORD"
+
+  upgrade_max:
+    slot: 25
+    icon:
+      material: "EMERALD_BLOCK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&6MAX"
+    lore:
+      - "&7Du niveau &e%enchant_level_current% &7au &e%enchant_level_max%"
+      - "&7Niveaux: &e%enchant_levels_to_max%"
+      - "&7Coût total: &e%enchant_cost_essence_max%"
+    action: "UPGRADE_ENCHANT:MAX"
+
+  open_disenchant:
+    slot: 44
+    icon:
+      material: "ANVIL"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&cDésenchanter"
+    lore:
+      - "&7Retirer des niveaux et récupérer"
+      - "&7une partie de l'essence."
+    action: "OPEN_DISENCHANT_MENU"
+
+  # 🔔 Toggle UNIQUEMENT des notifications de proc de cet enchant
+  notif_toggle:
+    slot: 36
+    icon:
+      material: "BELL"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+
+    name: "&eNotifications de cet enchant: %enchant_notif_status%"
+    lore:
+      - "&7Actuellement: &f%enchant_notif_status%"
+      - "&7(ON = messages, OFF = silencieux)"
+      - ""
+      - "&eClique pour basculer."
+
+    enabled:
+      name: "&aNotifications de cet enchant: &2Activées"
+      lore:
+        - "&7Tu reçois les messages lorsque"
+        - "&7%enchant_display_name% se déclenche."
+        - ""
+        - "&eClique pour &cDésactiver&e."
+    disabled:
+      name: "&cNotifications de cet enchant: &4Désactivées"
+      lore:
+        - "&7Tu ne recevras plus les messages pour"
+        - "&7%enchant_display_name%."
+        - ""
+        - "&eClique pour &aActiver&e."
+
+    action: "TOGGLE_ENCHANT_NOTIF"
+
+  back:
+    slot: 40
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu des enchantements."
+    action: "OPEN_MENU:enchants"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8, 37,38,39,41,42,43]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

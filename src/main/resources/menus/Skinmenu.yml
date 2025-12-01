@@ -1,0 +1,64 @@
+id: "skins"
+title: "&bSkins de PrestigeHoe"
+size: 54
+
+layout:
+  auto-fill-from-skins-config: true
+  start-slot: 10
+  per-row: 7
+
+skin-template:
+  icon:
+    material: "IRON_HOE"
+    custom-model-data: 0
+    itemsadder-id: ""
+    oraxen-id: ""
+    skull-owner: ""
+    skull-texture: ""
+  name: "%skin_display_name%"
+  lore:
+    - "&7ID: &f%skin_id%"
+    - ""
+    - "&6Pré-requis :"
+    - "&7- Prestige min: &e%skin_req_prestige%"
+    - "&7- Cultures cassées: &e%skin_req_crops%"
+    - "&7- Permission: &e%skin_req_permission%"
+    - ""
+    - "&6Coût :"
+    - "&7- Argent: &e%skin_cost_money%"
+    - "&7- Essence: &e%skin_cost_essence%"
+    - "&7- Items: &e%skin_cost_items%"
+    - "&7- Commandes: &e%skin_cost_commands%"
+    - ""
+    - "&7Statut: &f%skin_status%"
+    - ""
+    - "&eClique pour équiper."
+
+items:
+
+  back:
+    slot: 49
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu principal."
+    action: "OPEN_MENU:main"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8, 45,46,47,48,50,51,52,53]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

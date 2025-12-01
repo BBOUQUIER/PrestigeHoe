@@ -1,0 +1,92 @@
+id: "disenchantmenu"
+title: "&8Désenchanter %enchant_display_name%"
+
+size: 54
+
+items:
+  back:
+    slot: 45
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&cRetour"
+    lore: []
+    action: "OPEN_MENU:enchants"
+
+  info:
+    slot: 13
+    icon:
+      material: "BOOK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&e%enchant_display_name%"
+    lore:
+      - "&7Niveau actuel: &e%enchant_level_current%&7/&e%enchant_level_max%"
+      - "&7Niveaux retirables: &e%enchant_removable_levels%"
+      - ""
+      - "&7Description:"
+      - "&f%enchant_description_lines%"
+
+  disenchant_x1:
+    slot: 20
+    icon:
+      material: "REDSTONE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&c-1 niveau"
+    lore:
+      - "&7Refund: &b%enchant_refund_essence_x1%"
+    action: "DISENCHANT_ENCHANT:1"
+
+  disenchant_x10:
+    slot: 21
+    icon:
+      material: "REDSTONE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&c-10 niveaux"
+    lore:
+      - "&7Refund: &b%enchant_refund_essence_x10%"
+    action: "DISENCHANT_ENCHANT:10"
+
+  disenchant_x50:
+    slot: 22
+    icon:
+      material: "REDSTONE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&c-50 niveaux"
+    lore:
+      - "&7Refund: &b%enchant_refund_essence_x50%"
+    action: "DISENCHANT_ENCHANT:50"
+
+  disenchant_max:
+    slot: 23
+    icon:
+      material: "REDSTONE_BLOCK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&6Tout retirer"
+    lore:
+      - "&7Niveaux: &e%enchant_removable_levels%"
+      - "&7Refund total: &b%enchant_refund_essence_max%"
+    action: "DISENCHANT_ENCHANT:MAX"

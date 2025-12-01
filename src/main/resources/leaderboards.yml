@@ -1,0 +1,32 @@
+leaderboards:
+  refresh-interval-seconds: 60
+  # Nombre maximum de pages pour les menus de tops
+  # (0 = seulement la page 1, 1 = pages 1 et 2, etc.)
+  max-pages: 2
+  size:
+    prestige: 10
+    essence: 10
+    crops_total: 10
+
+  types:
+    prestige:
+      enabled: true
+      display-name: "&dTop Prestige"
+    essence:
+      enabled: true
+      display-name: "&bTop Essence"
+    crops_total:
+      enabled: true
+      display-name: "&eTop Crops Totales"
+
+  empty-slot-item:
+    icon:
+      material: "PLAYER_HEAD"          # ou GLASS_PANE, comme tu veux
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""                  # vide = tête par défaut
+      skull-texture: ""                # tu peux mettre une texture base64 de tête grise ici
+    name: "#%lb_rank% &8Aucun joueur"
+    lore:
+      - "&7Personne n'occupe encore ce rang."

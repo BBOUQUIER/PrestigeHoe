@@ -1,0 +1,56 @@
+boosts:
+  essence_30:
+    enabled: true
+    display-name: "&bBoost Essence &7(+30%)"
+    icon:
+      material: "LAPIS_LAZULI"
+      custom-model-data: 0
+      itemsadder-id: ""     # ex: "prestigehoe:essence_boost_30"
+      oraxen-id: ""         # si tu utilises Oraxen plus tard
+      skull-owner: ""       # si tu veux une tête de joueur
+      skull-texture: ""     # ou une texture base64 pour une tête custom
+    type: "ESSENCE"      # ESSENCE / MONEY / XP_HOE / XP_PLAYER / JOB_XP
+    mode: "ADD"          # ADD -> +value, MULTIPLY -> x(1+value)
+    value: 0.30
+    duration-seconds: 1800  # 30 minutes
+    lore:
+      - "&7Augmente ton gain d'Essence"
+      - "&7de &b30% &7pendant &f30 minutes&7."
+
+  money_50:
+    enabled: true
+    display-name: "&6Boost Argent &7(+50%)"
+    icon:
+      material: "GOLD_INGOT"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    type: "MONEY"
+    mode: "ADD"
+    value: 0.50
+    duration-seconds: 1800
+    lore:
+      - "&7Augmente ton gain d'argent"
+      - "&7de &e50% &7pendant &f30 minutes&7."
+
+  xp_hoe_100:
+    enabled: true
+    display-name: "&eBoost XP Houe &7(x2)"
+    icon:
+      material: "EXPERIENCE_BOTTLE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    type: "XP_HOE"
+    mode: "MULTIPLY"
+    value: 1.0   # x(1+1.0) = x2
+    duration-seconds: 600
+    lore:
+      - "&7Double l'XP de ta houe"
+      - "&7pendant &f10 minutes&7."
+
+# Conflit de boosts géré par config.yml > boosts.item-boost-conflict-mode

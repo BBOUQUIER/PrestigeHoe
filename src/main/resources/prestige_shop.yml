@@ -1,0 +1,136 @@
+prestige_shop:
+  enabled: true
+
+  perks:
+    essence_boost:
+      enabled: true
+      slot: 20
+      display-name: "&bBoost Essence"
+      icon:
+        material: "LAPIS_LAZULI"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente l'essence gagnée"
+        - "&7par casse de crops."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.10
+      type: "ESSENCE"
+
+    money_boost:
+      enabled: true
+      slot: 21
+      display-name: "&aBoost Argent"
+      icon:
+        material: "EMERALD"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente l'argent gagné"
+        - "&7par casse de crops."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.10
+      type: "MONEY"
+
+    xp_hoe_boost:
+      enabled: true
+      slot: 22
+      display-name: "&dBoost XP Houe"
+      icon:
+        material: "EXPERIENCE_BOTTLE"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente l'XP gagnée par la"
+        - "&7PrestigeHoe à chaque casse."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.05
+      type: "XP_HOE_MULTIPLIER"
+
+    xp_player_boost:
+      enabled: true
+      slot: 23
+      display-name: "&bBoost XP Joueur"
+      icon:
+        material: "EXPERIENCE_BOTTLE"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente l'XP vanilla du joueur"
+        - "&7gagnée en farmant."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.05
+      type: "XP_PLAYER_MULTIPLIER"
+
+    jobs_xp_boost:
+      enabled: true
+      slot: 24
+      display-name: "&eBoost XP Jobs"
+      icon:
+        material: "GOLD_INGOT"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente l'XP des métiers"
+        - "&7donnée par le farm."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.05
+      type: "JOBS_XP_MULTIPLIER"
+
+    enchant_proc_boost:
+      enabled: true
+      slot: 24
+      display-name: "&cBoost Proc Enchants"
+      icon:
+        material: "NETHER_STAR"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente les chances de proc"
+        - "&7des enchantements de ta houe."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 0.02
+      type: "ENCHANT_PROC_MULTIPLIER"
+
+    speed_boost:
+      enabled: true
+      slot: 25
+      display-name: "&fBoost Vitesse"
+      icon:
+        material: "SUGAR"
+        custom-model-data: 0
+        itemsadder-id: ""
+        oraxen-id: ""
+        skull-owner: ""
+        skull-texture: ""
+      description:
+        - "&7Augmente ta vitesse de déplacement"
+        - "&7de façon permanente."
+      cost-tokens: 5
+      max-level: 10
+      value-per-level: 2   # +2% vitesse par niveau
+      type: "SPEED"

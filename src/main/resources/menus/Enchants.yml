@@ -1,0 +1,111 @@
+id: "enchants"
+title: "&dEnchantements de la PrestigeHoe"
+size: 54
+
+enchants:
+  auto-fill-from-enchants-config: true
+
+
+
+  template:
+    icon:
+      material: "ENCHANTED_BOOK"
+      custom-model-data: 0
+      itemsadder-id: ""            # tu peux mettre un icône ItemsAdder par défaut
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "%enchant_display_name%"
+    lore:
+      - "&7ID: &f%enchant_id%"
+      - "&7Niveau actuel: &e%enchant_level_current% &7/&e%enchant_level_max%"
+      - "&7Coût (x1): &b%enchant_cost_essence_single% &7"
+      - ""
+      - "&7Description:"
+      - "%enchant_description_lines%"
+      - ""
+      - "&7Notifications: &f%enchant_notif_status%"
+      - "&8⬇ &eClique pour ouvrir le menu d'upgrade."
+
+items:
+  settings:
+    slot: 45
+    icon:
+      material: "REDSTONE_COMPARATOR"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&7Paramètres"
+    lore:
+      - "&7Configurer:"
+      - "&7 - Récap automatique"
+      - "&7 - Enchants en &eActionBar&7, &eTitre&7, &eChat"
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:settings"
+
+  back:
+    slot: 49
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu principal."
+    action: "OPEN_MENU:main"
+
+  filler:
+    slots: [0,1,2,3,5,6,7,8, 46,47,48,50,51,52,53]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"
+
+  hoe_info:
+    slot: 4
+    icon:
+      material: "GOLDEN_HOE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eTa PrestigeHoe"
+    lore:
+      - "&7Propriétaire: &e%player%"
+      - "&7Niveau: &e%hoe_level% &7/&e%hoe_max_level%"
+      - "&7Prestige: &d%hoe_prestige%"
+      - "&7XP: &e%hoe_xp_current% &7/&e%hoe_xp_required%"
+      - ""
+      - "&7Crops cassées: &e%hoe_crops_broken_formatted%"
+      - "&7Essence actuelle: &b%player_essence_formatted%"
+      - "&7Argent actuel: &6%player_money_formatted%"
+      - "&7Tokens prestige: &d%prestige_tokens_formatted%"
+      - ""
+      - "&7Boosts globaux :"
+      - "&7- Essence: &b%hoe_boost_essence_total_mult% &8(&f%hoe_boost_essence_total_percent%&8)"
+      - "&7- Argent: &a%hoe_boost_money_total_mult% &8(&f%hoe_boost_money_total_percent%&8)"
+      - "&7- XP Hoe: &d%hoe_boost_xp_hoe_total_mult% &8(&f%hoe_boost_xp_hoe_total_percent%&8)"
+      - "&7- XP Joueur: &b%hoe_boost_xp_player_total_mult% &8(&f%hoe_boost_xp_player_total_percent%&8)"
+      - ""
+      - "&7Bonus skin :"
+      - "&8- Argent: &f%skin_money_bonus% &7(%skin_money_mult%)"
+      - "&8- Essence: &f%skin_essence_bonus% &7(%skin_essence_mult%)"
+      - "&8- XP Houe: &f%skin_hoe_xp_bonus% &7(%skin_hoe_xp_mult%)"
+      - "&8- XP Joueur: &f%skin_player_xp_bonus% &7(%skin_player_xp_mult%)"
+      - ""
+      - "&7Enchantements :"
+      - "%hoe_enchants_lines%"
+    action: "NONE"

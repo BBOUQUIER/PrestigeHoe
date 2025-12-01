@@ -1,0 +1,99 @@
+id: "prestige"
+title: "&dPrestige de la PrestigeHoe"
+size: 45
+
+items:
+  info:
+    slot: 13
+    icon:
+      material: "NETHER_STAR"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&dStatut de ta PrestigeHoe"
+    lore:
+      - "&7Propriétaire: &e%player%"
+      - ""
+      - "&7Prestige actuel: &d%hoe_prestige%"
+      - "&7Tokens prestige: &d%prestige_tokens_formatted%"
+      - ""
+      - "&7Boost Essence: &b%prestige_boost_essence%"
+      - "&7Boost Argent: &6%prestige_boost_money%"
+      - "&7Boost XP Houe: &e%prestige_boost_xp_hoe%"
+      - "&7Boost XP Joueur: &e%prestige_boost_xp_player%"
+      - ""
+      - "&7Par prestige:"
+      - "&7 - Essence: &b%prestige_boost_essence_per_prestige%"
+      - "&7 - Argent: &6%prestige_boost_money_per_prestige%"
+      - "&7 - XP Houe: &e%prestige_boost_xp_hoe_per_prestige%"
+      - "&7 - Proc enchants: &d%prestige_boost_enchant_proc_per_prestige%"
+      - "&7Le prestige nécessite d'être au"
+      - "&7niveau &e%hoe_max_level% &7de ta houe."
+
+    action: "NONE"
+
+  do_prestige:
+    slot: 22
+    icon:
+      material: "ENDER_EYE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&dPrestiger maintenant"
+    lore:
+      - "&7Augmente le prestige de ta houe."
+      - "&7Cela remet ton niveau à &e1&7."
+      - ""
+      - "&eCondition:"
+      - "&7- &e%hoe_level% &7/ &e%hoe_max_level%"
+      - ""
+      - "&eClique pour prestiger."
+    action: "PRESTIGE_UP"
+
+  open_shop:
+    slot: 31
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&aBoutique de Prestige"
+    lore:
+      - "&7Utilise tes &dPrestige Tokens"
+      - "&7pour acheter des boosts permanents."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:prestige_shop"
+
+  back:
+    slot: 40
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu principal."
+    action: "OPEN_MENU:main"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8,  36,37,38,39,41,42,43,44]
+    icon:
+      material: "GRAY_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

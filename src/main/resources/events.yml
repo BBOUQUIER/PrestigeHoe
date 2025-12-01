@@ -1,0 +1,38 @@
+# ============================
+#  PrestigeHoe - events.yml
+# ============================
+# Configuration des events de farm et de leurs horaires.
+
+events:
+  harvester_event:
+    enabled: true
+    display-name: "&dHarvester Event"
+
+    type: "CROPS_BROKEN"  # type d'event de base
+
+    duration-seconds: 600   # 10 minutes
+
+    # Si true, une seule casse multi-bloc compte comme 1 pour le score (anti-abus)
+    count-multi-block-as-one: true
+
+    rewards:
+      # Récompenses par place, par ex top 1, 2, 3
+      1:
+        commands:
+          - "broadcast &d[PrestigeHoe] &f%player% &aa gagné l'event &dHarvester&a !"
+          - "give %player% diamond 32"
+      2:
+        commands:
+          - "give %player% diamond 16"
+      3:
+        commands:
+          - "give %player% diamond 8"
+
+    schedule:
+      enabled: true
+      timezone: "Europe/Paris"
+      # Liste des horaires de lancement (HH:mm)
+      times:
+        - "18:30"
+        - "20:00"
+

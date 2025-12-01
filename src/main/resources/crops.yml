@@ -1,0 +1,72 @@
+crops:
+
+  wheat:
+    display-name: "&eBlé"
+    material: "WHEAT"
+    fully-grown-required: true
+
+    xp-hoe: 10.0
+    xp-player: 10
+    essence: 10
+    price: 5.0
+    category: "default"
+
+    requirements:
+      hoe-level-min: 1
+      prestige-min: 0
+
+  carrot:
+    display-name: "&6Carotte"
+    material: "CARROT"
+    fully-grown-required: true
+
+    xp-hoe: 12.0
+    xp-player: 0.6
+    essence: 0.15
+
+    price: 7.0
+    category: "default"
+
+    requirements:
+      hoe-level-min: 5
+      prestige-min: 0
+
+  tube_coral:
+    display-name: "&bCorail bleu"
+    material: "TUBE_CORAL_BLOCK"
+    fully-grown-required: false
+
+    xp-hoe: 20.0
+    xp-player: 1.0
+    essence: 50
+
+    price: 15.0
+    category: "custom"
+
+    requirements:
+      hoe-level-min: 1
+      prestige-min: 0
+
+    regrow:
+      enabled: true
+      # Bloc "bébé" (non farmé, juste décor)
+      baby-material: "DEAD_TUBE_CORAL_FAN"
+      # Temps avant repousse en ticks (20 ticks = 1s)
+      delay-ticks: 600   # 30 secondes
+
+  melon:
+    display-name: "&aPastèque"
+    material: "MELON"
+    fully-grown-required: true
+    xp-hoe: 25
+    xp-player: 1
+    essence: 0.5
+    price: 50.0
+    category: "default"
+    requirements:
+      hoe-level-min: 1
+      prestige-min: 0
+    regrow:
+      enabled: false
+      baby-material: "MELON"
+      delay-ticks: 600

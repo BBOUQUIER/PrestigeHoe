@@ -1,0 +1,93 @@
+name: PrestigeHoe
+main: fr.batistou15.prestigehoe.PrestigeHoePlugin
+version: 1.0.0
+api-version: "1.21"
+author: "Batistou15"
+description: "PrestigeHoe - Harvester Hoe / Farm2Win / Tycoon"
+
+depend:
+  - Vault
+
+softdepend:
+  - PlaceholderAPI
+  - ItemsAdder
+  - NBTAPI
+  - WorldGuard
+  - ProtocolLib
+  - HolographicDisplays
+  - Jobs
+  - CMI
+  - ShopGUIPlus
+  - LuckPerms
+  - HeadDatabase
+
+commands:
+  prestigehoe:
+    description: Commande principale du plugin PrestigeHoe
+    usage: /prestigehoe
+    aliases: [hoe]
+
+  essencehoe:
+    description: Alias pour /prestigehoe essence
+    usage: /essencehoe
+
+permissions:
+  prestigehoe.menu:
+    description: Accès au menu PrestigeHoe (/prestigehoe menu)
+    default: true
+
+  prestigehoe.admin.reload:
+    description: Reload des configs
+    default: op
+
+  prestigehoe.admin.give:
+    description: Donner une PrestigeHoe
+    default: op
+
+  prestigehoe.admin.setenchant:
+    description: Modifier un enchantement sur la houe
+    default: op
+
+  prestigehoe.admin.setprestige:
+    description: Modifier le prestige de la houe d'un joueur
+    default: op
+
+  prestigehoe.admin.info:
+    description: Voir les infos PrestigeHoe d'un joueur
+    default: op
+
+  prestigehoe.admin.reset:
+    description: Reset complet de la houe et des stats d'un joueur
+    default: op
+
+  prestigehoe.admin.setlevel:
+    description: Modifier le niveau de la houe d'un joueur
+    default: op
+
+  prestigehoe.admin.debug:
+    description: Utiliser /prestigehoe debug
+    default: op
+
+  prestigehoe.admin.setowner:
+    description: Modifier le propriétaire d'une PrestigeHoe
+    default: op
+
+  prestigehoe.admin.perk:
+    description: Gérer les perks de prestige (/prestigehoe perk)
+    default: op
+
+  prestigehoe.admin.token:
+    description: Gérer les Prestige Tokens (/prestigehoe token)
+    default: op
+
+  prestigehoe.essence.view:
+    description: Voir son Essence (/prestigehoe essence ou /essencehoe)
+    default: true
+
+  prestigehoe.essence.pay:
+    description: Envoyer de l'Essence à un autre joueur
+    default: true
+
+  prestigehoe.admin.essence:
+    description: Gérer l'Essence des joueurs (set/add/remove)
+    default: op

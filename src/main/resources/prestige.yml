@@ -1,0 +1,51 @@
+# ==============================
+#  PrestigeHoe - prestige.yml
+# ==============================
+# Configuration du système de prestige.
+
+prestige:
+  max-prestige: 100
+
+  # Gestion du niveau max de la houe (formule dans config.yml > formulas.hoe_max_level)
+  max-level:
+    base: 50
+    increment-per-prestige: 5
+
+  # Incréments de bonus par prestige (utilisés dans formulas.prestige_multiplier
+  increments:
+    money-multiplier-per-prestige: 0.01
+    essence-multiplier-per-prestige: 0.01
+    xp-hoe-multiplier-per-prestige: 0.01
+    xp-player-multiplier-per-prestige: 0.01
+    job-xp-multiplier-per-prestige: 0.01
+    enchant-proc-multiplier-per-prestige: 0.01
+
+  tokens:
+    enabled: true
+    currency-display-name: "&dPrestige Token"
+    # Formule pour calculer le nombre de tokens donnés à chaque prestige
+    # Variables :
+    #   prestige -> nouveau prestige après l'up
+    tokens_per_prestige_formula: "1 + floor(prestige / 5)"
+
+  # Conditions de prestige (peuvent être complétées plus tard)
+  conditions:
+    # nécessite d'être au niveau max
+    require-max-level: true
+    # optionnel : essence minimale, argent, etc.
+    require-min-essence: 0
+    require-min-money: 0
+
+  reset:
+    # Mode de reset au prestige (cf. config.yml -> prestige.prestige-reset-mode)
+    # Ici on peut affiner : quels champs sont reset, lesquels restent
+    reset-level-to: 1
+    reset-xp-to: 0
+    reset-enchants: false
+    reset-stats: false
+
+  # Comportement auto-prestige détaillé (en plus des flags de config.yml)
+  auto:
+    enabled: true
+    permission: "prestigehoe.autoprestige"
+

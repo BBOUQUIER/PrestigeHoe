@@ -1,0 +1,204 @@
+id: "main"
+title: "&6&lPrestigeHoe &7- &fMenu principal"
+size: 45
+
+items:
+  hoe_info:
+    slot: 13
+    icon:
+      material: "GOLDEN_HOE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eTa PrestigeHoe"
+    lore:
+      - "&7Propriétaire: &e%player%"
+      - "&7Niveau: &e%hoe_level% &7/&e%hoe_max_level%"
+      - "&7Prestige: &d%hoe_prestige%"
+      - "&7XP: &e%hoe_xp_current% &7/&e%hoe_xp_required%"
+      - ""
+      - "&7Crops cassées: &e%hoe_crops_broken_formatted%"
+      - "&7Essence actuelle: &b%player_essence_formatted%"
+      - "&7Argent actuel: &6%player_money_formatted%"
+      - "&7Tokens prestige: &d%prestige_tokens_formatted%"
+      - ""
+      - "&7- Essence: &b%hoe_boost_essence_total_mult% &8(&f%hoe_boost_essence_total_percent%&8)"
+      - "&7- Argent: &a%hoe_boost_money_total_mult% &8(&f%hoe_boost_money_total_percent%&8)"
+      - "&7- XP Hoe: &d%hoe_boost_xp_hoe_total_mult% &8(&f%hoe_boost_xp_hoe_total_percent%&8)"
+      - "&7- XP Joueur: &b%hoe_boost_xp_player_total_mult% &8(&f%hoe_boost_xp_player_total_percent%&8)"
+      - ""
+      - "&7Bonus skin :"
+      - "&8- Argent: &f%skin_money_bonus% &7(%skin_money_mult%)"
+      - "&8- Essence: &f%skin_essence_bonus% &7(%skin_essence_mult%)"
+      - "&8- XP Houe: &f%skin_hoe_xp_bonus% &7(%skin_hoe_xp_mult%)"
+      - "&8- XP Joueur: &f%skin_player_xp_bonus% &7(%skin_player_xp_mult%)"
+      - ""
+      - "&7Enchantements :"
+      - "%hoe_enchants_lines%"
+
+    action: "NONE"
+
+  enchants:
+    slot: 20
+    icon:
+      material: "ENCHANTED_BOOK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&dEnchantements"
+    lore:
+      - "&7Améliore les enchantements de ta houe"
+      - "&7en dépensant de l'Essence."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:enchants"
+
+  disenchant:
+    slot: 21
+    icon:
+      material: "BOOK"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&cDésenchantements"
+    lore:
+      - "&7Retire des niveaux d'enchantements"
+      - "&7(utile pour corriger un build)."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:disenchant"
+
+  prestige:
+    slot: 22
+    icon:
+      material: "NETHER_STAR"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&dPrestige"
+    lore:
+      - "&7Gère le prestige de ta houe,"
+      - "&7les prérequis et les récompenses."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:prestige"
+
+  prestige_shop:
+    slot: 23
+    icon:
+      material: "EMERALD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&aBoutique de Prestige"
+    lore:
+      - "&7Achète des boosts permanents"
+      - "&7avec tes &dPrestige Tokens&7."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:prestige_shop"
+
+  skins:
+    slot: 24
+    icon:
+      material: "PLAYER_HEAD"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: "%player%"   # par défaut tête du joueur, overridable côté code
+      skull-texture: ""
+    name: "&bSkins de houe"
+    lore:
+      - "&7Change l'apparence de ta houe"
+      - "&7avec des skins débloquables."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:skins"
+
+  crops:
+    slot: 29
+    icon:
+      material: "WHEAT"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eCultures"
+    lore:
+      - "&7Voir toutes les cultures disponibles,"
+      - "&7leurs gains et leurs prérequis."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:crops"
+
+  leaderboards:
+    slot: 30
+    icon:
+      material: "PAPER"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&6Classements"
+    lore:
+      - "&7Consulte les meilleurs joueurs"
+      - "&7en Essence, Prestige, Crops cassées."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:leaderboards"
+
+  settings:
+    slot: 31
+    icon:
+      material: "REDSTONE_COMPARATOR"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&7Paramètres"
+    lore:
+      - "&7Récap automatique, notifications,"
+      - "&7types de messages, etc."
+      - ""
+      - "&eClique pour ouvrir."
+    action: "OPEN_MENU:settings"
+
+  close:
+    slot: 40
+    icon:
+      material: "BARRIER"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&cFermer"
+    lore:
+      - "&7Clique pour fermer le menu."
+    action: "CLOSE"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8, 36,37,38,39,41,42,43,44]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

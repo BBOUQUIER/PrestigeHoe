@@ -1,0 +1,60 @@
+id: "crops"
+title: "&eCultures PrestigeHoe"
+size: 54
+
+layout:
+  auto-fill-from-crops-config: true
+  start-slot: 10
+  per-row: 7
+
+crop-template:
+  icon:
+    material: "%crop_material%"   # tu peux override via config interne
+    custom-model-data: 0
+    itemsadder-id: ""             # si tu as des cultures ItemsAdder visuelles
+    oraxen-id: ""
+    skull-owner: ""
+    skull-texture: ""
+  name: "%crop_display_name%"
+  lore:
+    - "&7Catégorie: &f%crop_category%"
+    - ""
+    - "&7Prix unitaire: &a$%crop_price%"
+    - "&7Essence par casse: &b%crop_essence%"
+    - "&7XP Houe: &e%crop_xp_hoe%"
+    - "&7XP Joueur: &e%crop_xp_player%"
+    - ""
+    - "&7Pré-requis:"
+    - "&7 - Niveau houe min: &e%crop_req_hoe_level%"
+    - "&7 - Prestige min: &d%crop_req_prestige%"
+    - ""
+    - "&7Statut pour toi: &f%crop_status%"
+
+items:
+
+  back:
+    slot: 49
+    icon:
+      material: "ARROW"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: "&eRetour"
+    lore:
+      - "&7Retourner au menu principal."
+    action: "OPEN_MENU:main"
+
+  filler:
+    slots: [0,1,2,3,4,5,6,7,8, 45,46,47,48,50,51,52,53]
+    icon:
+      material: "BLACK_STAINED_GLASS_PANE"
+      custom-model-data: 0
+      itemsadder-id: ""
+      oraxen-id: ""
+      skull-owner: ""
+      skull-texture: ""
+    name: " "
+    lore: []
+    action: "NONE"

@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.batistou15.prestigehoe'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+
+    // Paper API
+    maven {
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+
+    // PlaceholderAPI
+    maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
+
+    // VaultAPI (JitPack)
+    maven {
+        url = 'https://jitpack.io'
+    }
+    maven { url = 'https://repo.dmulloy2.net/repository/public/' }
+}
+
+dependencies {
+    // Paper API 1.21.8
+    compileOnly "io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT"
+
+    // Vault API
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
+
+    // PlaceholderAPI
+    compileOnly "me.clip:placeholderapi:2.11.5"
+
+    // ProtocolLib (pour les effets visuels client-side)
+    compileOnly "net.dmulloy2:ProtocolLib:5.4.0"
+
+    // Gson pour le stockage JSON
+    implementation "com.google.code.gson:gson:2.10.1"
+// Jobs - uniquement l'API, sans dépendances transitives (mcMMO, WG, etc.)
+    compileOnly("com.github.Zrips:Jobs:v5.2.6.2") {
+        transitive = false
+    }
+    implementation 'org.xerial:sqlite-jdbc:3.45.2.0'
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+/**
+ * Copie automatiquement le jar dans D:\\Genstycoon\\plugins
+ * Commande : gradlew copyPluginJar
+ */
+tasks.register('copyPluginJar', Copy) {
+    dependsOn 'build'
+
+    from layout.buildDirectory.dir("libs")
+    include "${project.name}-${project.version}.jar"
+
+    into 'D:/Genstycoon/plugins'
+}

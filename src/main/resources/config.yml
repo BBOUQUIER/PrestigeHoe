@@ -1,0 +1,324 @@
+# ==========================
+#  PrestigeHoe - config.yml
+# ==========================
+# Fichier principal de configuration du plugin.
+# Tout ce qui est logique globale, formules, gestion de stockage,
+# options de farm, triggers de menus, etc. se trouve ici.
+
+general:
+  language: "fr"
+
+  # Mode réseau :
+  # LOCAL  -> données sur 1 seul serveur (SQLite/JSON)
+  # MYSQL  -> données partagées entre plusieurs serveurs
+  storage-type: "LOCAL"
+
+storage:
+  # Type de stockage des profils joueurs :
+  # - JSON   : un fichier .json par joueur (actuel)
+  # - SQLITE : un fichier SQLite local
+  # - MYSQL  : base MySQL externe
+  type: "MYSQL"
+  auto-save:
+    enabled: true           # true = autosave activé, false = désactivé
+    interval-seconds: 300   # temps entre deux sauvegardes, en secondes (ici 5 min)
+
+  sqlite:
+    # Nom du fichier SQLite dans le dossier du plugin
+    file: "prestigehoe.db"
+
+  mysql:
+    host: "127.0.0.1"
+    port: 3306
+    database: "prestigehoe"
+    user: "prestigehoe"
+    password: "monSuperMotDePasse123"
+    use-ssl: false
+    table-prefix: "ph_"
+
+hooks:
+  jobs:
+    enabled: true   # Si false => aucun hook Jobs, même si le plugin est présent
+    debug: true    # Si true => quelques logs en console quand Jobs envoie de l'XP
+
+
+hoe:
+  # Donne automatiquement une houe au joueur à sa première connexion
+  auto-give-on-first-join: true
+
+  # Si true, la houe ne peut pas être droppée au sol
+  prevent-drop: true
+
+  # Si true, impossible de poser la houe dans un coffre / enderchest / etc.
+  prevent-container-move: true
+
+  # Si true, impossible de mettre la houe en main secondaire (off-hand)
+  # Et le plugin ouvre le menu principal à la place (ou un autre menu configurable)
+  prevent-offhand: true
+
+  # Mode d'affichage de l'XP :
+  # HOE      -> la barre d'XP Minecraft reflète l'XP / niveau de la houe
+  # VANILLA  -> XP classique Minecraft
+  # DISABLED -> pas de gestion de la barre d'XP par le plugin
+  xp-bar-mode: "HOE"
+
+  # Auto replant des cultures (blé, etc.) après casse
+  auto-replant:
+    enabled: true
+
+  # Enchants par défaut sur la houe de base
+  # Clé = ID de l'enchant de enchants.yml
+  default-enchants:
+    autosell: 1
+    fortune: 1
+    token_finder: 10
+
+  # Gestion des crops placées par les joueurs :
+  # Si true, pas de gain d'XP/Essence/argent sur les blocs marqués comme "placés"
+  anti-abuse:
+    ignore-player-placed-blocks: true
+    # Si activé, le plugin tague les blocs posés par les joueurs, plus lourd mais plus propre.
+    track-placed-blocks: true
+
+  display:
+    material: "DIAMOND_HOE"
+    name: "&6PrestigeHoe &7[Lv. %level%]"
+    lore:
+      - "&7XP: &e%xp%"
+      - "&7Prestige: &d%prestige%"
+      - "&7Essence: &b%essence%"
+
+
+hoe-menus:
+  right-click: "enchants"           # clic droit en main => désactivé si vide
+  left-click: ""            # idem pour clic gauche (au chaud pour plus tard)
+  off-hand: "prestige"      # menu à ouvrir quand F est pressé avec une hoe (swap annulé)
+
+disenchant:
+  essence-refund-percent: 50.0
+
+menus:
+  # Détermine comment ouvrir le menu principal :
+  # - RIGHT_CLICK
+  # - SHIFT_RIGHT_CLICK
+  # - COMMAND_ONLY
+  main-menu-trigger: "RIGHT_CLICK"
+
+  # Menu à ouvrir si le joueur tente de mettre la houe en off-hand
+  offhand-open-menu: "main"  # "main" / "enchants" / "prestige" / etc. (doit exister dans guis.yml)
+
+economy:
+  # Utiliser un plugin de shop (ShopGUI+) pour les prix des cultures
+  use-shop-plugin: true
+
+  # Si aucun prix n'est trouvé dans le shop, utiliser les prix de crops.yml
+  fallback-prices-enabled: true
+
+  # Gestion des grades (grades.yml)
+  grades:
+    # FREE  -> les grades gratuits se remplacent (on prend le plus haut)
+    free-grades-mode: "REPLACE"
+
+    # PAID  -> ADD = on additionne, REPLACE = le grade payant remplace les bonus
+    paid-grades-mode: "ADD"
+
+
+notifications:
+  level-up:
+    # CHAT, ACTIONBAR, TITLE, BOSSBAR, NONE
+    type: "CHAT"
+
+    # Paramètres optionnels pour TITLE
+    title:
+      fade-in: 10        # en ticks
+      stay: 40
+      fade-out: 10
+
+    # Paramètres optionnels pour BOSSBAR
+    bossbar:
+      color: "GREEN"     # voir enum BarColor : BLUE, GREEN, PINK, PURPLE, RED, YELLOW, WHITE
+      style: "SOLID"     # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+      duration-ticks: 60 # durée d’affichage
+
+  prestige:
+    type: "TITLE"
+    title:
+      fade-in: 10
+      stay: 60
+      fade-out: 10
+    bossbar:
+      color: "PURPLE"
+      style: "SOLID"
+      duration-ticks: 80
+
+
+boosts:
+  # REPLACE : le nouveau boost remplace l'ancien de même type
+  # ADD      : les boosts de même type se cumulent
+  # DENY     : impossible d'activer un boost si un autre du même type est actif
+  item-boost-conflict-mode: "REPLACE"
+
+  right-click: "enchants"      # clic droit avec la PrestigeHoe en main -> ouvre le menu "main"
+  left-click: ""           # clic gauche (laisser vide = désactivé)
+  off-hand: "prestige"     # quand la hoe passe en main gauche (swap F ou clic avec off-hand)
+
+recap:
+  enabled: true
+  # Intervalle en secondes entre chaque recap automatique
+  interval-seconds: 10
+  # Recap activé par défaut pour les nouveaux joueurs
+  default-enabled: true
+  # Temps d'inactivité (en secondes) après lequel on arrête
+  # d'envoyer des récap à un joueur (0 ou valeur négative = désactivé)
+  inactivity-timeout-seconds: 5
+
+prestige:
+  # Auto-prestige si le joueur a atteint les conditions ?
+  auto-prestige-enabled: true
+  # Permission requise pour l'auto-prestige
+  auto-prestige-permission: "prestigehoe.autoprestige"
+
+  # Choix de la méthode de reset lors du prestige :
+  # "RESET_LEVEL"   -> reset du niveau de la houe, conserve les enchants
+  # "RESET_PARTIAL" -> reset d'une partie des stats, configurable plus tard
+  prestige-reset-mode: "RESET_LEVEL"
+
+prestige-shop:
+  enabled: true
+  shop-name: "&dPrestige Shop"
+
+logs:
+  # Active ou non les logs globaux
+  enabled: true
+
+  # Log des procs d'enchants "sensibles"
+  log-enchants:
+    - "explosive"
+    - "linebreaker"
+    - "furie"
+    - "essence_pouch"
+    - "money_pouch"
+    - "spawner_finder"
+
+  # Log des achats dans le prestige shop
+  log-prestige-shop: true
+
+  # Log des prestiges
+  log-prestige-up: true
+
+  # Désactiver les logs liés à l'argent (pour éviter le spam)
+  log-money-gain: false
+
+events:
+  # Global ON/OFF pour le système d'events
+  enabled: true
+
+placeholders:
+  # Activation du hook PlaceholderAPI
+  enable-papi: true
+
+  # Préfixe des placeholders : %prestigehoe_...%
+  prefix: "prestigehoe"
+
+formulas:
+  # ================================
+  # Formules globales (Eval string)
+  # ================================
+  # ATTENTION :
+  # - Les variables disponibles sont documentées dans les commentaires
+  # - Les devs doivent utiliser un moteur de formules simple (type Eval)
+
+  # Formule XP requise pour passer du niveau (level) au niveau suivant
+  # Variables :
+  #   level     -> niveau actuel de la houe
+  #   base      -> valeur base-xp (voir ci-dessous)
+  #   exponent  -> exponentiel de progression (1.5, 2, etc.)
+  xp_required_per_level:
+    expression: "base * (level ^ exponent)"
+    variables:
+      base: 200
+      exponent: 0.2
+
+  # Gain d'Essence pour un "événement" de farm (casse de X blocs)
+  # Variables :
+  #   crop_essence          -> Essence de base de la crop (crops.yml)
+  #   quantity              -> nombre de blocs pris en compte
+  #   global_multiplier     -> multiplicateur global
+  #   prestige_multi        -> multiplicateur dû au prestige de la houe
+  #   grades_multi          -> multiplicateur venant des grades
+  #   skins_multi           -> multiplicateur venant du skin équipé
+  #   boosts_multi          -> multiplicateur venant des boosts temporaires (items)
+  #   events_multi          -> multiplicateur d'event
+  #   enchants_multi        -> multiplicateur des enchants (EssenceBooster, Furie, etc.)
+  #   permanent_shop_multi  -> multiplicateur des perks permanents du prestige shop
+  essence_gain:
+    expression: "crop_essence * quantity * global_multiplier * prestige_multi * grades_multi * skins_multi * boosts_multi * events_multi * enchants_multi * permanent_shop_multi"
+    variables:
+      global_multiplier: 1.0
+
+  # Gain d'argent (Vault)
+  # Variables identiques à essence_gain, sauf :
+  #   base_price  -> prix unitaire de la crop (shop plugin ou fallback)
+  money_gain:
+    expression: "base_price * quantity * prestige_multi * grades_multi * skins_multi * boosts_multi * events_multi * enchants_multi * permanent_shop_multi"
+    variables:
+      # multiplier global pour tous les gains d'argent
+      global_multiplier: 1.0
+
+  # Multiplicateur lié au prestige de la houe
+  # Variables :
+  #   prestige              -> prestige actuel de la houe
+  #   base_multiplier       -> multiplicateur de base (1 = pas de boost)
+  #   per_prestige_bonus    -> bonus par prestige
+  prestige_multiplier:
+    expression: "base_multiplier + prestige * per_prestige_bonus"
+    variables:
+      base_multiplier: 1.0
+      per_prestige_bonus: 0.01
+
+  # Niveau max de la houe en fonction du prestige
+  # Variables :
+  #   base_max_level        -> niveau max de base (prestige 0)
+  #   prestige              -> prestige actuel
+  #   per_prestige          -> nombre de niveaux supplémentaires par prestige
+  hoe_max_level:
+    expression: "base_max_level + prestige * per_prestige"
+    variables:
+      base_max_level: 50
+      per_prestige: 5
+
+  # Multiplicateur d'Essence venant des grades (free + paid)
+  # Variables :
+  #   free_grade_multi      -> multiplicateur venant du grade gratuit
+  #   paid_grade_multi      -> multiplicateur venant des grades payants cumulés
+  grade_essence_multiplier:
+    expression: "free_grade_multi * paid_grade_multi"
+
+  # Chance de proc globale pour un enchant
+  # Variables :
+  #   base_chance           -> chance de base (0.0 à 1.0)
+  #   enchant_level         -> niveau de l'enchant
+  #   chance_per_level      -> gain de chance par niveau
+  #   proc_booster_multi    -> multiplicateur venant de l'enchant ProcBooster + perks permanents
+  # Exemple : base_chance = 0.05 (5%), chance_per_level = 0.01 (1% par level)
+  enchant_proc_chance:
+    expression: "(base_chance + (enchant_level - 1) * chance_per_level) * proc_booster_multi"
+
+  # Formule pour les coûts d'enchant par niveau
+  # (utilisé pour calculer le coût d'un niveau donné)
+  # Variables :
+  #   base_cost              -> coût de base pour le niveau 1
+  #   level                  -> niveau à acheter
+  #   increase_percent       -> % d'augmentation par niveau (ex: 50 = +50%)
+  enchant_level_cost:
+    expression: "base_cost * ((1 + increase_percent / 100) ^ (level - 1))"
+
+  # % de refund (disenchant)
+  # Variables :
+  #   total_spent            -> montant total investi sur les niveaux retirés
+  #   refund_percent         -> % de refund (0->100)
+  disenchant_refund:
+    expression: "total_spent * (refund_percent / 100)"
+    variables:
+      refund_percent: 50.0
+
