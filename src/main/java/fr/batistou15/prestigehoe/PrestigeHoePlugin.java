@@ -64,7 +64,41 @@ public class PrestigeHoePlugin extends JavaPlugin {
             getLogger().warning("Impossible de créer le dossier de données du plugin.");
         }
 
-        ResourceBootstrapper.copyDefaults(this);
+        // ======= Ressources par défaut (.yml) =======
+        String[] baseResources = {
+                "config.yml",
+                "messages.yml",
+                "enchants.yml",
+                "crops.yml",
+                "skins.yml",
+                "prestige.yml",
+                "prestige_shop.yml",
+                "grades.yml",
+                "boosts.yml",
+                "leaderboards.yml",
+                "events.yml",
+                "guis.yml"
+        };
+        for (String resource : baseResources) {
+            saveDefaultResourceIfNotExists(resource);
+        }
+
+        // Menus
+        String[] menuResources = {
+                "menus/Main.yml",
+                "menus/Enchants.yml",
+                "menus/UpgradeMenu.yml",
+                "menus/DisenchantMenu.yml",
+                "menus/PrestigeMenu.yml",
+                "menus/PrestigeShopMenu.yml",
+                "menus/Skinmenu.yml",
+                "menus/LeaderboardsMenu.yml",
+                "menus/CropsMenu.yml",
+                "menus/Settings.yml"
+        };
+        for (String resource : menuResources) {
+            saveDefaultResourceIfNotExists(resource);
+        }
 
         // ======= Configs =======
         this.configManager = new ConfigManager(this);
@@ -281,6 +315,59 @@ public class PrestigeHoePlugin extends JavaPlugin {
         setupAutoSaveTask();
     }
 
+        type = type.toUpperCase(Locale.ROOT);
+        getLogger().info("[Storage] Type demandé dans config: " + type);
+
+        switch (type) {
+            case "SQLITE": {
+                if (storageSec == null) {
+                    getLogger().warning("[Storage] Section storage absente, fallback JSON.");
+                    dataStorage = new JsonDataStorage(this);
+                    break;
+                }
+
+                ConfigurationSection sqliteSec = storageSec.getConfigurationSection("sqlite");
+                if (sqliteSec == null) {
+                    getLogger().warning("[Storage] Section storage.sqlite absente, fallback JSON.");
+                    dataStorage = new JsonDataStorage(this);
+                    break;
+                }
+
+                String fileName = sqliteSec.getString("file", "prestigehoe.db");
+                File dbFile = new File(getDataFolder(), fileName);
+
+                dataStorage = new SqliteDataStorage(this, dbFile);
+                getLogger().info("[Storage] Utilisation de SQLite (" + dbFile.getName() + ").");
+                break;
+            }
+
+            case "MYSQL": {
+                if (storageSec == null) {
+                    getLogger().warning("[Storage] Section storage absente, fallback JSON.");
+                    dataStorage = new JsonDataStorage(this);
+                    break;
+                }
+
+                ConfigurationSection mysqlSec = storageSec.getConfigurationSection("mysql");
+                if (mysqlSec == null) {
+                    getLogger().warning("[Storage] Section storage.mysql absente, fallback JSON.");
+                    dataStorage = new JsonDataStorage(this);
+                    break;
+                }
+
+                dataStorage = new MysqlDataStorage(this, mysqlSec);
+                getLogger().info("[Storage] Utilisation de MySQL.");
+                break;
+            }
+
+            // JSON + tout autre type inconnu => fallback JSON
+            default: {
+                dataStorage = new JsonDataStorage(this);
+                getLogger().info("[Storage] Utilisation du stockage JSON (par joueur). Type=" + type);
+                break;
+            }
+        }
+    }
     public void setupAutoSaveTask() {
         // Annule l'ancienne tâche si elle existe
         if (autoSaveTask != null) {
