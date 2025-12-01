@@ -1,10 +1,8 @@
 package fr.batistou15.prestigehoe;
 
 import fr.batistou15.prestigehoe.boost.BoostManager;
-import fr.batistou15.prestigehoe.bootstrap.CommandRegistrar;
-import fr.batistou15.prestigehoe.bootstrap.ListenerRegistrar;
-import fr.batistou15.prestigehoe.bootstrap.ResourceBootstrapper;
-import fr.batistou15.prestigehoe.bootstrap.StorageFactory;
+import fr.batistou15.prestigehoe.boost.BoostUseListener;
+import fr.batistou15.prestigehoe.commands.PrestigeHoeCommand;
 import fr.batistou15.prestigehoe.config.ConfigManager;
 import fr.batistou15.prestigehoe.crop.CropManager;
 import fr.batistou15.prestigehoe.data.*;
@@ -15,11 +13,16 @@ import fr.batistou15.prestigehoe.formula.FormulaEngine;
 import fr.batistou15.prestigehoe.hoe.HoeItemManager;
 import fr.batistou15.prestigehoe.hooks.EconomyHook;
 import fr.batistou15.prestigehoe.hooks.JobsHook;
+import fr.batistou15.prestigehoe.listeners.*;
+import fr.batistou15.prestigehoe.menu.MenuListener;
+import fr.batistou15.prestigehoe.menu.MenuManager;
+import fr.batistou15.prestigehoe.menu.SkinMenuListener;
 import fr.batistou15.prestigehoe.notification.NotificationService;
 import fr.batistou15.prestigehoe.prestige.PrestigeBonusService;
 import fr.batistou15.prestigehoe.recap.RecapService;
 import fr.batistou15.prestigehoe.skin.SkinManager;
 import fr.batistou15.prestigehoe.util.ProtocolLibEffectsUtil;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -28,6 +31,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.io.File;
+import java.util.Locale;
 import java.util.logging.Level;
 
 public class PrestigeHoePlugin extends JavaPlugin {
@@ -105,7 +110,7 @@ public class PrestigeHoePlugin extends JavaPlugin {
         this.configManager.reloadAll();
 
         // === Storage ===
-        this.dataStorage = StorageFactory.create(this, configManager);
+        setupStorage();
         this.playerDataManager = new PlayerDataManager(this, dataStorage);
         // 🔁 Auto-save périodique basé sur config.yml
         setupAutoSaveTask();
@@ -154,18 +159,81 @@ public class PrestigeHoePlugin extends JavaPlugin {
         // Menus
         this.menuManager = new MenuManager(this);
 
-        // ======= Listeners & commandes =======
-        ListenerRegistrar listenerRegistrar = new ListenerRegistrar(this);
-        listenerRegistrar.registerCoreListeners(
-                playerDataManager,
-                hoeItemManager,
-                menuManager,
-                farmService,
-                prestigeBonusService,
-                skinManager
+        // ======= Listeners =======
+        PluginManager pm = getServer().getPluginManager();
+
+        // Connexion / chargement profil
+        pm.registerEvents(
+                new PlayerConnectionListener(playerDataManager, hoeItemManager, configManager),
+                this
         );
 
-        new CommandRegistrar(this).registerCommands();
+        // Protection de la hoe + ouverture menu via touche F
+        pm.registerEvents(
+                new HoeProtectionListener(this),
+                this
+        );
+
+        // Casse de blocs / farm
+        pm.registerEvents(
+                new FarmListener(farmService),
+                this
+        );
+
+        // Clic dans les menus
+        pm.registerEvents(
+                new MenuListener(this), // <-- on passe le plugin, pas le menuManager
+                this
+        );
+
+        // Ouverture de menu via clic droit / off-hand sur la hoe
+        pm.registerEvents(
+                new HoeMenuOpenListener(this),
+                this
+        );
+
+        // Listener de vitesse lié à la hoe
+        pm.registerEvents(
+                new HoeSpeedListener(this, playerDataManager, hoeItemManager, prestigeBonusService),
+                this
+        );
+        pm.registerEvents(
+                new BoostUseListener(this),
+                this
+        );
+        pm.registerEvents(        new SkinMenuListener(
+                this,
+                this.skinManager,
+                this.playerDataManager,
+                this.hoeItemManager,
+                this.menuManager.getSkinMenuService()
+        ),
+                this
+);
+        // Listener TNT (Explosive)
+        pm.registerEvents(new ExplosiveTntListener(this), this);
+
+        // ======= Commandes =======
+        PrestigeHoeCommand prestigeCmd = new PrestigeHoeCommand(this);
+
+        // /prestigehoe
+        PluginCommand prestigeCommand = getCommand("prestigehoe");
+        if (prestigeCommand != null) {
+            prestigeCommand.setExecutor(prestigeCmd);
+            prestigeCommand.setTabCompleter(prestigeCmd);
+        } else {
+            getLogger().severe("Commande /prestigehoe non trouvée dans plugin.yml !");
+        }
+
+        // /essencehoe (alias logique vers PrestigeHoeCommand, sous-commande essence)
+        PluginCommand essenceCommand = getCommand("essencehoe");
+        if (essenceCommand != null) {
+            essenceCommand.setExecutor(prestigeCmd);
+            essenceCommand.setTabCompleter(prestigeCmd);
+        } else {
+            // pas bloquant, juste un alias manquant
+            getLogger().warning("Commande /essencehoe non trouvée dans plugin.yml (alias).");
+        }
 
         getLogger().info("PrestigeHoe est activé.");
     }
@@ -314,6 +382,17 @@ public class PrestigeHoePlugin extends JavaPlugin {
         // 9) Relancer la tâche d'auto-save périodique (au cas où l'intervalle a changé)
         setupAutoSaveTask();
     }
+    private void setupStorage() {
+        var mainCfg = getConfigManager().getMainConfig();
+        ConfigurationSection storageSec = mainCfg.getConfigurationSection("storage");
+
+        String type = "JSON";
+        if (storageSec != null) {
+            type = storageSec.getString("type", "JSON");
+        }
+        if (type == null) {
+            type = "JSON";
+        }
 
         type = type.toUpperCase(Locale.ROOT);
         getLogger().info("[Storage] Type demandé dans config: " + type);
@@ -426,6 +505,16 @@ public class PrestigeHoePlugin extends JavaPlugin {
      */
     public void reloadPluginConfigs() {
         reloadAllConfigs();
+    }
+
+    /**
+     * Sauvegarde une ressource par défaut uniquement si elle n'existe pas encore.
+     */
+    public void saveDefaultResourceIfNotExists(String resourcePath) {
+        java.io.File outFile = new java.io.File(getDataFolder(), resourcePath);
+        if (!outFile.exists()) {
+            saveResource(resourcePath, false);
+        }
     }
 
     /**
